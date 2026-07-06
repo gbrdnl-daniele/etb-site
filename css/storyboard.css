@@ -1,0 +1,102 @@
+.story-line {
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 2;
+  max-width: min(1280px, 94vw);
+  margin: 0 auto;
+  text-align: center;
+
+  font-family: var(--story), serif;
+  font-size: clamp(1.65rem, 3.05vw, 3.65rem);
+  font-weight: 500;
+  letter-spacing: calc(.20em + var(--tracking-extra));
+  line-height: 1.18;
+  color: #fff5df;
+  text-shadow:
+    0 0 12px rgba(255, 240, 205, .18),
+    0 0 45px rgba(218, 146, 54, .16),
+    0 0 90px rgba(172, 87, 20, .11);
+  white-space: pre-line;
+  text-transform: none;
+
+  opacity: 0;
+  filter: blur(2.4px);
+  transform: translateY(8px) scale(.995);
+  transition:
+    opacity .5s cubic-bezier(.22, .90, .32, 1),
+    filter .5s cubic-bezier(.22, .90, .32, 1),
+    transform .5s cubic-bezier(.22, .90, .32, 1);
+}
+
+.story-line.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.story-line.is-out {
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateY(-5px) scale(1.006);
+  transition:
+    opacity 1200ms cubic-bezier(.18, .92, .22, 1),
+    filter 1200ms cubic-bezier(.18, .92, .22, 1),
+    transform 1200ms cubic-bezier(.18, .92, .22, 1);
+}
+
+.story-line.is-claim {
+  text-transform: uppercase;
+  font-size: clamp(2.2rem, 4.2vw, 4.6rem);
+  font-weight: 600;
+  letter-spacing: calc(.24em + var(--tracking-extra));
+  color: #fff8ec;
+}
+
+
+.story-line::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  width: 400px;
+  height: 2px;
+
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,235,190,.95),
+    transparent
+  );
+
+  border-radius: 999px;
+  box-shadow: 0 0 18px rgba(255,220,150,.45);
+
+  transition: transform 1000ms cubic-bezier(.22,.85,.18,1);
+}
+
+.story-line.is-visible::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.story-line.is-out::after {
+  transform: translateX(-50%) scaleX(0);
+}
+
+.story-line {
+  will-change: opacity, filter, transform;
+}
+
+.story-line::after {
+  will-change: transform;
+}
+
+.story-line.is-long {
+  font-size: clamp(1.35rem, 2.55vw, 3.05rem);
+  letter-spacing: calc(.16em + var(--tracking-extra));
+  text-shadow:
+    0 0 10px rgba(255, 240, 205, .14),
+    0 0 30px rgba(218, 146, 54, .10);
+}

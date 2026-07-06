@@ -1,0 +1,23 @@
+:root {
+  --headline: "Barlow Condensed";
+  --story: "Cinzel";
+  --body: "Inter";
+
+  --warm-white: #f4efe2;
+  --warm-soft: #d9c9a8;
+  --gold: #d5a34f;
+  --amber: #b96f2b;
+  --black: #050403;
+
+  --tracking-extra: 0.03em;
+
+  --cinema-duration: 3.2s;
+  --cinema-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --glow-low:
+    0 0 12px rgba(255, 220, 150, 0.1), 0 0 28px rgba(202, 133, 45, 0.08);
+
+  --glow-mid:
+    0 0 16px rgba(255, 236, 190, 0.16), 0 0 44px rgba(211, 140, 46, 0.14),
+    0 0 90px rgba(173, 93, 23, 0.08);
+}

@@ -1,0 +1,38 @@
+const ETB_DATES = [
+  {
+    date: "2026-07-11",
+    city: "MACCARESE",
+    province: "RM",
+    event: "EVENTO PRIVATO",
+    location: "",
+    time: "22:00",
+  },
+       
+  {
+    date: "2026-08-13",
+    city: "MONTEFLAVIO",
+    province: "RM",
+    event: "FESTA PATRONALE MARIA SS. ASSUNTA E SAN ROCCO",
+    location: "",
+    time: "21:30",
+  },
+
+  {
+    date: "2026-08-16",
+    city: "FORANO",
+    province: "RI",
+    event: "COMITATO FESTE AGOSTANE",
+    location: "PIAZZA GARIBALDI",
+    time: "22:00",
+  },
+
+  {
+    date: "2026-09-13",
+    city: "COLLE DEL SOLE",
+    province: "RM",
+    event: "",
+    location: "VIA ZEDDIANI",
+    time: "22:00",
+  },
+
+];

@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      ETB Eros Ramazzotti Tribute Band — Cinematic Experience Developer
+    </title>
+
+    <!-- Google Fonts: versione online di sviluppo. Per la pubblicazione potremo passare a font locali woff2. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Cinzel:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/effects.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/storyboard.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/scenes.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+  <body>
+    <div class="mobile-wip">
+      <div class="mobile-wip-card">
+        <img src="assets/images/etb-logo.png" alt="ETB" />
+
+        <h1>VERSIONE MOBILE IN COSTRUZIONE</h1>
+
+        <p>
+          Stiamo preparando l’esperienza mobile del sito ETB. Per il momento ti
+          consigliamo di visitare il sito da desktop o da uno schermo più
+          grande.
+        </p>
+
+        <span>ETB Eros Ramazzotti Tribute Band</span>
+      </div>
+    </div>
+
+    <div class="cinema-bg" aria-hidden="true">
+      <canvas id="particles"></canvas>
+      <div class="light-rays"></div>
+      <div class="fog f1"></div>
+      <div class="fog f2"></div>
+      <div class="stage-glow"></div>
+      <div class="floor-glow"></div>
+      <div class="vignette"></div>
+    </div>
+
+    <div class="grain" aria-hidden="true"></div>
+    <div id="sceneFader" class="scene-fader" aria-hidden="true"></div>
+
+    <nav id="topnav" class="topnav" aria-label="Menu principale">
+      <a href="#home">Home</a>
+      <a href="#band">La Band</a>
+      <a href="#showreel">Showreel</a>
+      <a href="#dates">Date</a>
+      <a href="#contacts">Contatti</a>
+    </nav>
+
+    <div id="introStage" class="intro-stage">
+      <div id="storyLine" class="story-line"></div>
+    </div>
+
+    <main class="site-shell">
+      <section id="hero" class="hero">
+        <img
+          class="hero-logo hero-part"
+          src="assets/images/etb-logo.png"
+          alt="ETB"
+        />
+
+        <h1 class="hero-title hero-part">EROS RAMAZZOTTI</h1>
+
+        <h2 class="hero-subtitle hero-part">TRIBUTE BAND</h2>
+
+        <p class="hero-claim">
+          <span class="hero-claim-line hero-part">La sua Musica.</span>
+          <span class="hero-claim-line hero-part">La nostra Passione.</span>
+        </p>
+
+        <div class="hero-actions hero-part">
+          <a class="btn primary" href="#">Guarda lo showreel</a>
+          <a class="btn" href="#">Contatti booking</a>
+        </div>
+      </section>
+
+      <section id="bandScene" class="scene band-scene" aria-hidden="true">
+        <div class="band-visual">
+          <img
+            class="band-scene-image"
+            src="assets/images/band-scene.png"
+            alt="ETB Eros Ramazzotti Tribute Band"
+          />
+
+          <div class="band-story">
+            <div id="bandStoryLine" class="band-story-line">
+              OTTO MUSICISTI. UNA SOLA DIREZIONE.
+            </div>
+
+            <p class="band-story-copy">
+              Otto musicisti sul palco per restituire l’energia, le emozioni e
+              il respiro live delle canzoni di Eros Ramazzotti.
+            </p>
+          </div>
+
+          <div class="band-discover" aria-hidden="true">
+            <strong>SCOPRI I MUSICISTI</strong>
+            <span>Seleziona un punto sulla band</span>
+          </div>
+
+          <div class="band-hotspots" aria-label="Scopri i musicisti">
+            <button
+              class="member-hotspot hotspot-fabio"
+              aria-label="Fabio Di Baldo"
+              data-member="fabio"
+            >
+              <span class="hotspot-label">
+                <strong>FABIO DI BALDO</strong>
+                <small>LEAD VOCALS</small>
+              </span>
+            </button>
+
+            <button
+              class="member-hotspot hotspot-danila"
+              aria-label="Danila Sansoni"
+              data-member="danila"
+            >
+              <span class="hotspot-label">
+                <strong>DANILA SANSONI</strong>
+                <small>VOCALS · DUETS · BACKING VOCALS</small>
+              </span>
+            </button>
+
+            <button
+              class="member-hotspot hotspot-daniele"
+              aria-label="Daniele Gabriele"
+              data-member="daniele"
+            >
+              <span class="hotspot-label">
+                <strong>DANIELE GABRIELE</strong>
+                <small>ELECTRIC · ACOUSTIC GUITAR · PROGRAMMING</small>
+              </span>
+            </button>
+
+            <button
+              class="member-hotspot hotspot-nico"
+              aria-label="Nico Sansoni"
+              data-member="nico"
+            >
+              <span class="hotspot-label">
+                <strong>NICO SANSONI</strong>
+                <small>ELECTRIC GUITAR</small>
+              </span>
+            </button>
+
+            <button
+              class="member-hotspot hotspot-nicola"
+              aria-label="Nicola Di Giorgio"
+              data-member="nicola"
+            >
+              <span class="hotspot-label">
+                <strong>NICOLA DI GIORGIO</strong>
+                <small>SAX</small>
+              </span>
+            </button>
+
+            <button
+              class="member-hotspot hotspot-stefano-nardi"
+              aria-label="Stefano Nardi"
+              data-member="stefano-nardi"
+            >
+              <span class="hotspot-label">
+                <strong>STEFANO NARDI</strong>
+                <small>PIANO · KEYBOARDS · BACKING VOCALS</small>
+              </span>
+            </button>
+
+            <button
+              class="member-hotspot hotspot-giammarco"
+              aria-label="Giammarco Turchini"
+              data-member="giammarco"
+            >
+              <span class="hotspot-label">
+                <strong>GIAMMARCO TURCHINI</strong>
+                <small>BASS · BACKING VOCALS</small>
+              </span>
+            </button>
+
+            <button
+              class="member-hotspot hotspot-stefano-campaioli"
+              aria-label="Stefano Campaioli"
+              data-member="stefano-campaioli"
+            >
+              <span class="hotspot-label">
+                <strong>STEFANO CAMPAIOLI</strong>
+                <small>DRUMS</small>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="showreelScene"
+        class="scene showreel-scene"
+        aria-hidden="true"
+      >
+        <div class="showreel-intro">
+          <div class="showreel-line showreel-line-1">NON È UNA CANZONE.</div>
+
+          <div class="showreel-line showreel-line-2">È UNO SPETTACOLO.</div>
+
+          <button id="showreelPlay" class="showreel-play" type="button">
+            <span class="showreel-play-icon">▶</span>
+            <span>GUARDA IL PROMO UFFICIALE</span>
+          </button>
+        </div>
+
+        <video
+          id="showreelVideo"
+          class="showreel-video"
+          preload="metadata"
+          playsinline
+          controls
+        >
+          <source src="assets/images/promo-etb.mp4" type="video/mp4" />
+        </video>
+      </section>
+
+      <section id="datesScene" class="scene dates-scene" aria-hidden="true">
+        <div class="dates-visual">
+          <img
+            class="dates-background"
+            src="assets/images/etb-date.png"
+            alt=""
+            aria-hidden="true"
+          />
+
+          <div class="dates-shade"></div>
+
+          <div class="dates-content">
+            <div class="dates-heading">PROSSIME DATE</div>
+
+            <div id="datesList" class="dates-list"></div>
+
+            <button
+              id="datesArchiveToggle"
+              class="dates-archive-toggle"
+              type="button"
+            >
+              ARCHIVIO LIVE →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="contactsScene"
+        class="scene contacts-scene"
+        aria-hidden="true"
+      >
+        <div class="contacts-visual">
+          <div class="contacts-shade"></div>
+
+          <div class="contacts-content">
+            <div class="contacts-kicker">BOOKING ETB</div>
+            <h2 class="contacts-title">CONTATTI & PREVENTIVO</h2>
+
+            <p class="contacts-copy">
+              Raccontaci il tuo evento. Il sistema può generare una prima stima
+              indicativa del live, soggetta a conferma del booking ETB.
+            </p>
+
+            <form id="quoteForm" class="quote-form">
+              <div class="quote-grid">
+                <label>
+                  Nome richiedente
+                  <input id="clientName" type="text" required />
+                </label>
+
+                <label>
+                  Data evento
+                  <input id="eventDate" type="date" required />
+                </label>
+
+                <label>
+                  Località evento
+                  <input
+                    id="eventLocation"
+                    type="text"
+                    placeholder="Es. Forano (RI)"
+                    required
+                    autocomplete="off"
+                  />
+                  <div
+                    id="locationSuggestions"
+                    class="location-suggestions"
+                  ></div>
+                </label>
+
+                <div
+                  id="locationSuggestions"
+                  class="location-suggestions"
+                ></div>
+
+                <label>
+                  Tipo di location
+                  <select id="locationType" required>
+                    <option value="">Seleziona il tipo di location</option>
+
+                    <option value="A">Suolo pubblico · Piazza · Festa</option>
+
+                    <option value="B">Pub · Ristorante · Locale</option>
+
+                    <option value="C">Teatro · Auditorium</option>
+                  </select>
+                </label>
+
+                <label>
+                  Formazione
+                  <select id="lineup">
+                    <option value="full">8 musicisti</option>
+                    <option value="reduced">7 musicisti senza sax</option>
+                  </select>
+                </label>
+
+                <label>
+                  Service audio e luci
+                  <select id="serviceOption" required>
+                    <option value="">Seleziona disponibilità service</option>
+
+                    <option value="available">Già disponibile sul posto</option>
+
+                    <option value="required">Richiesto a ETB</option>
+                  </select>
+                </label>
+
+                <label>
+                  Ricevi il preventivo su
+                  <select id="contactMethod" required>
+                    <option value="">Seleziona un canale</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="email">Email</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span id="contactValueLabel">Contatto</span>
+
+                  <input
+                    id="contactValue"
+                    type="text"
+                    placeholder="Seleziona prima il canale"
+                    required
+                    disabled
+                  />
+                </label>
+              </div>
+
+              <label>
+                Note evento
+                <textarea id="eventNotes" rows="3"></textarea>
+              </label>
+
+              <button class="quote-submit" type="submit">
+                CALCOLA STIMA INDICATIVA
+              </button>
+            </form>
+
+            <div id="quoteResult" class="quote-result" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="memberScene" class="scene member-scene" aria-hidden="true">
+        <div class="member-visual">
+          <img
+            id="memberImage"
+            class="member-image"
+            src="assets/images/fabio-vox.png"
+            alt="Fabio Di Baldo"
+          />
+
+          <div class="member-shade"></div>
+
+          <div class="member-content">
+            <div id="memberRole" class="member-role">LEAD VOCALS</div>
+
+            <h2 id="memberName" class="member-name">FABIO DI BALDO</h2>
+
+            <p id="memberQuote" class="member-quote">
+              La voce che guida il viaggio.<br />
+              Il respiro live delle canzoni di Eros.
+            </p>
+          </div>
+
+          <button
+            id="memberBack"
+            class="member-back"
+            type="button"
+            aria-label="Torna alla band"
+          >
+            ← BAND
+          </button>
+        </div>
+      </section>
+
+      <section id="themeCard" class="theme-card">
+        <h2>ETB Cinematic Experience</h2>
+        <p>
+          Developer Edition: struttura separata in cartelle, timing
+          centralizzati e codice formattato per la rifinitura della versione
+          desktop 16:9.
+        </p>
+      </section>
+    </main>
+
+    <script src="js/timing.js"></script>
+    <script src="js/dates.js"></script>
+    <script src="js/dates.js"></script>
+    <script src="js/quote-engine.js"></script>
+    <script src="js/route-service.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/storyboard.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/quote-engine.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

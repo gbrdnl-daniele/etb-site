@@ -1,0 +1,235 @@
+.cinema-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 60%,
+      rgba(255,220,140,.06) 0%,
+      rgba(80,45,15,.05) 12%,
+      rgba(15,8,3,.35) 28%,
+      rgba(5,3,2,.92) 48%,
+      #000000 100%
+    );
+}
+
+#particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .42;
+}
+
+.fog {
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(ellipse at 18% 62%, rgba(255, 214, 136, .18), transparent 35%),
+    radial-gradient(ellipse at 82% 42%, rgba(191, 112, 35, .15), transparent 39%),
+    radial-gradient(ellipse at 52% 50%, rgba(255, 240, 205, .14), transparent 42%);
+  filter: blur(32px);
+  opacity: .20;
+  animation: fogDrift 18s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+.fog.f2 {
+  opacity: .15;
+  filter: blur(42px);
+  animation-duration: 26s;
+  animation-direction: alternate-reverse;
+  transform: scale(1.18);
+}
+
+.light-rays {
+  position: absolute;
+  inset: -15%;
+  background: conic-gradient(
+    from 248deg at 50% 55%,
+    transparent 0deg,
+    rgba(255, 206, 116, .12) 10deg,
+    transparent 23deg,
+    transparent 48deg,
+    rgba(255, 178, 75, .08) 66deg,
+    transparent 84deg,
+    transparent 100deg,
+    rgba(255, 229, 170, .10) 112deg,
+    transparent 130deg,
+    transparent 360deg
+  );
+  filter: blur(20px);
+  opacity: .12;
+  animation: raysMove 18s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+.stage-glow {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(980px, 92vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle at center,
+    rgba(255,238,195,.22) 0%,
+    rgba(156,83,23,.05) 23%,
+    rgba(156, 83, 23, .05) 47%,
+    rgba(0, 0, 0, 0) 75%
+  );
+  filter: blur(4px);
+  opacity: .12;
+  animation: orbBreath 8s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+.floor-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  width: min(1050px, 98vw);
+  height: 190px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(238, 158, 58, .28),
+    rgba(119, 55, 15, .12) 40%,
+    transparent 72%
+  );
+  filter: blur(18px);
+  opacity: 0;
+  animation: floorPulse 7s ease-in-out infinite alternate;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      rgba(0,0,0,.34) 40%,
+      rgba(0,0,0,.92) 100%
+    ),
+
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.84),
+      transparent 30%,
+      rgba(0,0,0,.90)
+    );
+
+  pointer-events: none;
+}
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: .085;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+  animation: grainShift .9s steps(2, end) infinite;
+  mix-blend-mode: overlay;
+}
+
+.scene-fader {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  background: #000;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1800ms cubic-bezier(.22, .7, .18, 1);
+}
+
+.scene-fader.is-clear {
+  opacity: 0;
+}
+
+.scene-fader.is-black {
+  opacity: 1;
+}
+
+/* INTRO: sfondo più spento */
+body.intro-mode .fog,
+body.intro-mode .fog.f2,
+body.intro-mode .light-rays,
+body.intro-mode .stage-glow,
+body.intro-mode .floor-glow,
+body.intro-mode #particles {
+  opacity: .16;
+}
+
+/* HERO: lo stesso sfondo si riaccende */
+body.hero-mode .fog {
+  opacity: .24;
+}
+
+body.hero-mode .fog.f2 {
+  opacity: .16;
+}
+
+body.hero-mode .light-rays {
+  opacity: .22;
+}
+
+body.hero-mode .stage-glow {
+  opacity: .32;
+}
+
+body.hero-mode .floor-glow {
+  opacity: .26;
+}
+
+body.hero-mode #particles {
+  opacity: .42;
+}
+
+body.intro-mode .cinema-bg {
+  opacity: .55;
+}
+
+body.hero-mode .cinema-bg {
+  opacity: 0 !important;
+}
+
+body.intro-mode #particles {
+  opacity: .16 !important;
+}
+
+body.hero-mode #particles {
+  opacity: .42 !important;
+}
+
+body.intro-mode .fog,
+body.intro-mode .fog.f2,
+body.intro-mode .light-rays,
+body.intro-mode .stage-glow,
+body.intro-mode .floor-glow {
+  opacity: .10 !important;
+}
+
+body.hero-mode .fog {
+  opacity: .24 !important;
+}
+
+body.hero-mode .fog.f2 {
+  opacity: .16 !important;
+}
+
+body.hero-mode .light-rays {
+  opacity: .22 !important;
+}
+
+body.hero-mode .stage-glow {
+  opacity: .32 !important;
+}
+
+body.hero-mode .floor-glow {
+  opacity: .26 !important;
+}
