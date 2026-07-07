@@ -27,11 +27,11 @@ const ETB_DATES = [
   },
 
   {
-    date: "2026-09-13",
-    city: "COLLE DEL SOLE",
+    date: "2026-09-06",
+    city: "VILLAVERDE",
     province: "RM",
     event: "",
-    location: "VIA ZEDDIANI",
+    location: "VIA GAGLIANO DEL CAPO",
     time: "22:00",
   },
 
