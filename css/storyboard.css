@@ -9,23 +9,23 @@
   font-family: var(--story), serif;
   font-size: clamp(1.65rem, 3.05vw, 3.65rem);
   font-weight: 500;
-  letter-spacing: calc(.20em + var(--tracking-extra));
+  letter-spacing: calc(0.2em + var(--tracking-extra));
   line-height: 1.18;
   color: #fff5df;
   text-shadow:
-    0 0 12px rgba(255, 240, 205, .18),
-    0 0 45px rgba(218, 146, 54, .16),
-    0 0 90px rgba(172, 87, 20, .11);
+    0 0 12px rgba(255, 240, 205, 0.18),
+    0 0 45px rgba(218, 146, 54, 0.16),
+    0 0 90px rgba(172, 87, 20, 0.11);
   white-space: pre-line;
   text-transform: none;
 
   opacity: 0;
   filter: blur(2.4px);
-  transform: translateY(8px) scale(.995);
+  transform: translateY(8px) scale(0.995);
   transition:
-    opacity .5s cubic-bezier(.22, .90, .32, 1),
-    filter .5s cubic-bezier(.22, .90, .32, 1),
-    transform .5s cubic-bezier(.22, .90, .32, 1);
+    opacity 0.5s cubic-bezier(0.22, 0.9, 0.32, 1),
+    filter 0.5s cubic-bezier(0.22, 0.9, 0.32, 1),
+    transform 0.5s cubic-bezier(0.22, 0.9, 0.32, 1);
 }
 
 .story-line.is-visible {
@@ -39,19 +39,18 @@
   filter: blur(3px);
   transform: translateY(-5px) scale(1.006);
   transition:
-    opacity 1200ms cubic-bezier(.18, .92, .22, 1),
-    filter 1200ms cubic-bezier(.18, .92, .22, 1),
-    transform 1200ms cubic-bezier(.18, .92, .22, 1);
+    opacity 1800ms cubic-bezier(0.18, 0.92, 0.22, 1),
+    filter 1800ms cubic-bezier(0.18, 0.92, 0.22, 1),
+    transform 1800ms cubic-bezier(0.18, 0.92, 0.22, 1);
 }
 
 .story-line.is-claim {
   text-transform: uppercase;
   font-size: clamp(2.2rem, 4.2vw, 4.6rem);
   font-weight: 600;
-  letter-spacing: calc(.24em + var(--tracking-extra));
+  letter-spacing: calc(0.24em + var(--tracking-extra));
   color: #fff8ec;
 }
-
 
 .story-line::after {
   content: "";
@@ -67,14 +66,14 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255,235,190,.95),
+    rgba(255, 235, 190, 0.95),
     transparent
   );
 
   border-radius: 999px;
-  box-shadow: 0 0 18px rgba(255,220,150,.45);
+  box-shadow: 0 0 18px rgba(255, 220, 150, 0.45);
 
-  transition: transform 1000ms cubic-bezier(.22,.85,.18,1);
+  transition: transform 1000ms cubic-bezier(0.22, 0.85, 0.18, 1);
 }
 
 .story-line.is-visible::after {
@@ -95,8 +94,121 @@
 
 .story-line.is-long {
   font-size: clamp(1.35rem, 2.55vw, 3.05rem);
-  letter-spacing: calc(.16em + var(--tracking-extra));
+  letter-spacing: calc(0.16em + var(--tracking-extra));
   text-shadow:
-    0 0 10px rgba(255, 240, 205, .14),
-    0 0 30px rgba(218, 146, 54, .10);
+    0 0 10px rgba(255, 240, 205, 0.14),
+    0 0 30px rgba(218, 146, 54, 0.1);
 }
+
+.story-line.is-claim.is-out {
+  transition:
+    opacity 2200ms cubic-bezier(0.18, 0.92, 0.22, 1),
+    filter 2200ms cubic-bezier(0.18, 0.92, 0.22, 1),
+    transform 2200ms cubic-bezier(0.18, 0.92, 0.22, 1);
+}
+
+
+/* =========================================================
+   INTRO - PALCO IN PENOMBRA
+   ========================================================= */
+
+.intro-stage {
+  background: #020100;
+  overflow: hidden;
+}
+.intro-stage-bg {
+  position: absolute;
+  inset: -2%;
+  z-index: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.48),
+      rgba(0, 0, 0, 0.18) 42%,
+      rgba(0, 0, 0, 0.66)
+    ),
+    url("../assets/images/palco-intro.png") center center / cover no-repeat;
+
+  transform: scale(1);
+  will-change: transform;
+
+  animation: introCameraMove 8s linear forwards;
+}
+
+@keyframes introCameraMove {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(0.25%, -0.2%, 0) scale(1.04);
+  }
+}
+
+
+
+.intro-stage::before,
+.intro-stage::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      ellipse at 22% 70%,
+      rgba(218, 146, 54, 0.16),
+      transparent 34%
+    ),
+    radial-gradient(
+      ellipse at 76% 66%,
+      rgba(218, 146, 54, 0.13),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(255, 245, 223, 0.055),
+      transparent 46%
+    );
+
+  filter: blur(28px);
+  opacity: 0.34;
+  mix-blend-mode: screen;
+}
+
+.intro-stage::before {
+  animation: introSmokeDriftA 24s ease-in-out infinite alternate;
+}
+
+.intro-stage::after {
+  opacity: 0.22;
+  filter: blur(42px);
+  animation: introSmokeDriftB 32s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes introSmokeDriftA {
+  from {
+    transform: translateX(-2.2%) translateY(1%) scale(1);
+    opacity: 0.26;
+  }
+
+  to {
+    transform: translateX(2.4%) translateY(-1.2%) scale(1.06);
+    opacity: 0.42;
+  }
+}
+
+@keyframes introSmokeDriftB {
+  from {
+    transform: translateX(2%) translateY(-1%) scale(1.04);
+    opacity: 0.18;
+  }
+
+  to {
+    transform: translateX(-2.6%) translateY(1.4%) scale(1.1);
+    opacity: 0.3;
+  }
+}
+

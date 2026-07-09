@@ -28,7 +28,17 @@
   font-weight: 600;
   letter-spacing: calc(0.18em + var(--tracking-extra));
   text-transform: uppercase;
-  color: rgba(242, 238, 228, 0.72);
+  color: rgba(255, 245, 223, 0.82);
+
+  padding: 10px 22px;
+  border-radius: 999px;
+
+  background: rgba(2, 1, 0, 0.34);
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 0 28px rgba(0, 0, 0, 0.55),
+    inset 0 0 18px rgba(255, 220, 150, 0.035);
 }
 
 .topnav.is-visible {
@@ -55,8 +65,8 @@
   place-items: center;
   pointer-events: none;
   transition:
-    opacity 1400ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    filter 1400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity 1200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 1200ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .intro-stage.is-hidden {
@@ -74,8 +84,8 @@
   pointer-events: none;
 
   transition:
-  opacity var(--cinema-duration) var(--cinema-ease),
-  visibility var(--cinema-duration);
+    opacity var(--cinema-duration) var(--cinema-ease),
+    visibility var(--cinema-duration);
 }
 
 .scene.is-active {
@@ -87,5 +97,3 @@
 .band-scene {
   overflow: hidden;
 }
-
-

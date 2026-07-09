@@ -589,18 +589,19 @@
 .showreel-video {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
 
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center center;
+
+  background: #000;
 
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
 
-  transition:
-    opacity 900ms ease,
-    visibility 900ms;
+  z-index: 3;
 }
 
 .showreel-scene.is-playing .showreel-video {
@@ -652,6 +653,309 @@
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+.showreel-scene:not(.is-active) .showreel-intro,
+.showreel-scene:not(.is-active) .showreel-gallery,
+.showreel-scene:not(.is-active) .showreel-video {
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+/* =========================================================
+   SHOWREEL - AUDIENCE VIDEOS
+   ========================================================= */
+
+.showreel-audience {
+  margin-top: 2.5rem;
+
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(5px);
+}
+
+.showreel-scene.is-active .showreel-audience {
+  animation: showreelAudienceIn 1.4s ease forwards;
+  animation-delay: 3s;
+}
+
+.showreel-audience-title {
+  font-family: var(--story), serif;
+  font-size: clamp(0.9rem, 1.25vw, 1.2rem);
+  font-weight: 500;
+
+  letter-spacing: 0.22em;
+
+  color: #fff5df;
+}
+
+.showreel-audience-copy {
+  margin: 0.65rem 0 1rem;
+
+  font-family: var(--sans), sans-serif;
+  font-size: clamp(0.72rem, 0.85vw, 0.88rem);
+  line-height: 1.55;
+
+  color: rgba(255, 245, 223, 0.62);
+}
+
+.showreel-youtube {
+  display: inline-block;
+
+  padding: 0.72rem 1.15rem;
+
+  border: 1px solid rgba(218, 146, 54, 0.42);
+  border-radius: 999px;
+
+  background: rgba(218, 146, 54, 0.08);
+  color: rgba(218, 146, 54, 0.92);
+
+  font-family: var(--sans), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    color 280ms ease,
+    border-color 280ms ease,
+    background 280ms ease,
+    transform 280ms ease;
+}
+
+.showreel-youtube:hover {
+  color: #fff5df;
+  border-color: rgba(218, 146, 54, 0.72);
+  background: rgba(218, 146, 54, 0.16);
+  transform: translateY(-2px);
+}
+
+@keyframes showreelAudienceIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.showreel-gallery {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: block;
+
+  padding: 78px 6vw 46px;
+
+  background:
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(218, 146, 54, 0.14),
+      transparent 34%
+    ),
+    #020100;
+
+  color: #fff5df;
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  filter: blur(8px);
+
+  transition:
+    opacity var(--cinema-duration) var(--cinema-ease),
+    filter var(--cinema-duration) var(--cinema-ease),
+    visibility var(--cinema-duration);
+}
+
+.showreel-intro {
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity var(--cinema-duration) var(--cinema-ease),
+    filter var(--cinema-duration) var(--cinema-ease),
+    visibility var(--cinema-duration);
+}
+
+.showreel-scene.is-gallery .showreel-intro {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  filter: blur(8px);
+}
+
+.showreel-scene.is-active.is-gallery .showreel-gallery {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  filter: blur(0);
+}
+
+.showreel-gallery-kicker {
+  font-family: var(--sans), sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  color: rgba(218, 146, 54, 0.82);
+}
+
+.showreel-gallery-manifesto {
+  margin-top: 0.6rem;
+  margin-bottom: 1.7rem;
+
+  font-family: var(--story), serif;
+  font-size: clamp(1.8rem, 3.2vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: 0.16em;
+}
+
+.showreel-gallery-manifesto span {
+  display: block;
+  color: rgba(255, 245, 223, 0.55);
+}
+
+.showreel-gallery-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.showreel-video-panel {
+  min-width: 0;
+}
+
+.showreel-video-column {
+  max-height: 43vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  padding-right: 10px;
+}
+
+.showreel-live-grid,
+.showreel-tv-grid {
+  display: contents;
+}
+
+.showreel-card-tv {
+  aspect-ratio: 16 / 9;
+}
+
+.showreel-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+
+  border: 1px solid rgba(218, 146, 54, 0.2);
+  background: #000;
+  color: #fff5df;
+  text-decoration: none;
+}
+
+.showreel-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+
+  filter: brightness(0.72) contrast(1.08) saturate(0.92);
+  transform: scale(1.01);
+
+  transition:
+    transform 700ms var(--cinema-ease),
+    filter 700ms ease;
+}
+
+.showreel-card:hover img {
+  transform: scale(1.055);
+  filter: brightness(0.62) contrast(1.14) saturate(1.04);
+}
+
+.showreel-card-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 38%, rgba(0, 0, 0, 0.88));
+}
+
+.showreel-card-copy {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  z-index: 2;
+}
+
+.showreel-card-title {
+  font-family: var(--story), serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.35rem);
+  letter-spacing: 0.1em;
+}
+
+.showreel-card-meta {
+  margin-top: 0.3rem;
+  font-family: var(--sans), sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  color: rgba(218, 146, 54, 0.82);
+}
+
+.showreel-card-play {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  z-index: 2;
+}
+
+.showreel-gallery-section-title,
+.showreel-tv-subtitle {
+  font-family: var(--sans), sans-serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.24em;
+  color: rgba(255, 245, 223, 0.62);
+}
+
+.showreel-tv-subtitle {
+  margin: 0.35rem 0 0.8rem;
+  color: rgba(218, 146, 54, 0.72);
+}
+
+.showreel-gallery-back {
+  position: absolute;
+  left: 6vw;
+  bottom: 22px;
+
+  border: 0;
+  background: transparent;
+
+  font-family: var(--sans), sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+
+  color: rgba(255, 245, 223, 0.58);
+  cursor: pointer;
+}
+
+.showreel-gallery-back:hover {
+  color: #fff5df;
 }
 
 #topnav {
@@ -761,9 +1065,6 @@
   overflow-y: auto;
 
   padding-right: 1.5rem;
-
-  scrollbar-width: thin;
-  scrollbar-color: rgba(218, 146, 54, 0.35) transparent;
 }
 
 .dates-year {
@@ -949,6 +1250,22 @@
   inset: 0;
 }
 
+.contacts-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center right;
+
+  opacity: 0;
+  transform: scale(1.035);
+
+  display: block;
+}
+
 .contacts-shade {
   position: absolute;
   inset: 0;
@@ -1010,6 +1327,18 @@
   font-size: clamp(1rem, 1.25vw, 1.35rem);
   line-height: 1.55;
   color: rgba(255, 245, 223, 0.78);
+}
+
+.contacts-scene.is-active .contacts-background {
+  animation: contactsBackgroundReveal var(--cinema-duration) var(--cinema-ease)
+    forwards;
+}
+
+@keyframes contactsBackgroundReveal {
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .quote-grid {
@@ -1109,4 +1438,40 @@
 .location-suggestion:hover {
   color: #fff5df;
   background: rgba(218, 146, 54, 0.12);
+}
+
+/* =========================================================
+   SHOWREEL - PANEL HEADERS
+   ========================================================= */
+
+.showreel-panel-head {
+  height: 52px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding-bottom: 10px;
+}
+
+.showreel-panel-title {
+  font-family: var(--headline), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  letter-spacing: 0.28em;
+
+  color: rgba(255, 245, 223, 0.88);
+}
+
+.showreel-panel-subtitle {
+  margin-top: 7px;
+
+  font-family: var(--sans), sans-serif;
+  font-size: 0.62rem;
+  font-weight: 500;
+
+  letter-spacing: 0.24em;
+
+  color: rgba(218, 146, 54, 0.78);
 }

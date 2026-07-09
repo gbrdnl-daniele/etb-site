@@ -21,7 +21,10 @@
 
   async function showPhrase(scene) {
     const fadeInTime = scene.first ? timing.firstFadeIn : timing.fadeIn;
-    const fadeOutTime = scene.fadeOut || timing.fadeOut;
+
+    const fadeOutTime = scene.claim
+      ? timing.claimFadeOut
+      : scene.fadeOut || timing.fadeOut;
 
     line.textContent = scene.text;
     line.classList.toggle("is-claim", !!scene.claim);
@@ -42,9 +45,14 @@
 
     if (scene.claim) {
       const startRatio = timing.claimBackgroundFadeStart ?? 0.7;
+
       await wait(fadeOutTime * startRatio);
+
       transitionToHero();
+
       await wait(fadeOutTime * (1 - startRatio));
+
+      return;
     } else {
       await wait(fadeOutTime);
     }
@@ -68,36 +76,35 @@
   }
 
   async function transitionToHero() {
-    if (heroTransitionStarted) return;
-    heroTransitionStarted = true;
+  if (heroTransitionStarted) return;
+  heroTransitionStarted = true;
 
-    fader.style.transitionDuration = timing.fadeToBlack + "ms";
-    fader.classList.remove("is-clear");
-    fader.classList.add("is-black");
+  intro.classList.add("is-hidden");
 
-    await wait(timing.fadeToBlack);
+  fader.style.transitionDuration = timing.fadeToBlack + "ms";
+  fader.classList.remove("is-clear");
+  fader.classList.add("is-black");
 
-    intro.classList.add("is-hidden");
+  await wait(timing.fadeToBlack);
 
-    document.body.classList.remove("intro-mode");
-    document.body.classList.add("hero-mode");
+  document.body.classList.remove("intro-mode");
+  document.body.classList.add("hero-mode");
 
-    hero.classList.add("is-visible");
+  hero.classList.add("is-visible");
 
-    await wait(timing.blackPause);
+  await wait(timing.blackPause);
 
-    fader.style.transitionDuration = timing.heroFadeFromBlack + "ms";
-    fader.classList.add("is-clear");
-    fader.classList.remove("is-black");
+  fader.style.transitionDuration = timing.heroFadeFromBlack + "ms";
+  fader.classList.add("is-clear");
+  fader.classList.remove("is-black");
 
-    await wait(timing.heroFadeFromBlack);
-    fader.style.transitionDuration = "";
+  await wait(timing.heroFadeFromBlack);
+  fader.style.transitionDuration = "";
 
-    await revealHeroSequence();
+  await revealHeroSequence();
 
-    await wait(timing.cardDelay);
-    // card.classList.add("is-visible");
-  }
+  await wait(timing.cardDelay);
+}
 
   async function revealHeroSequence() {
     heroLogo?.classList.add("is-revealed");
@@ -126,6 +133,7 @@
     document.body.classList.add("intro-mode");
 
     const fadePromise = fadeFromInitialBlack();
+
     await showPhrase(storyboard[0]);
     await fadePromise;
 

@@ -17,3 +17,35 @@ body {
 body {
   min-height: 100vh;
 }
+
+/* =========================================================
+   ETB CINEMATIC SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(218, 146, 54, 0.55) rgba(255, 245, 223, 0.015);
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(255, 245, 223, 0.015);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(218, 146, 54, 0.55),
+    rgba(128, 68, 24, 0.38)
+  );
+
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(218, 146, 54, 0.75);
+}

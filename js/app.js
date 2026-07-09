@@ -21,6 +21,16 @@ const showreelVideo = document.getElementById("showreelVideo");
 const navContacts = document.querySelector('a[href="#contacts"]');
 const contactsScene = document.getElementById("contactsScene");
 
+const showreelExplore = document.getElementById("showreelExplore");
+const showreelGalleryBack = document.getElementById("showreelGalleryBack");
+
+showreelExplore?.addEventListener("click", () => {
+  showreelScene.classList.add("is-gallery");
+});
+
+showreelGalleryBack?.addEventListener("click", () => {
+  showreelScene.classList.remove("is-gallery");
+});
 let showreelIntroTimer;
 
 function goToScene(sceneName) {
@@ -31,6 +41,9 @@ function goToScene(sceneName) {
 
   showreelScene.classList.remove("is-playing");
   showreelScene.classList.remove("is-ready");
+
+  showreelScene.classList.remove("is-gallery");
+  showreelGallery?.setAttribute("aria-hidden", "true");
 
   heroScene.classList.add("scene-hidden");
 
@@ -118,11 +131,6 @@ navBand?.addEventListener("click", (e) => {
 navHome?.addEventListener("click", (e) => {
   e.preventDefault();
   goToScene("home");
-});
-
-navShowreel?.addEventListener("click", (e) => {
-  e.preventDefault();
-  goToScene("showreel");
 });
 
 showreelPlay?.addEventListener("click", () => {
@@ -479,14 +487,11 @@ eventLocationInput?.addEventListener("input", () => {
    CONTACT METHOD
    ========================================================= */
 
-const contactMethodSelect =
-  document.getElementById("contactMethod");
+const contactMethodSelect = document.getElementById("contactMethod");
 
-const contactValueInput =
-  document.getElementById("contactValue");
+const contactValueInput = document.getElementById("contactValue");
 
-const contactValueLabel =
-  document.getElementById("contactValueLabel");
+const contactValueLabel = document.getElementById("contactValueLabel");
 
 contactMethodSelect?.addEventListener("change", () => {
   const method = contactMethodSelect.value;
@@ -508,11 +513,9 @@ contactMethodSelect?.addEventListener("change", () => {
     contactValueLabel.textContent = "Contatto";
 
     contactValueInput.type = "text";
-    contactValueInput.placeholder =
-      "Seleziona prima il canale";
+    contactValueInput.placeholder = "Seleziona prima il canale";
   }
 });
-
 
 /* =========================================================
    QUOTE FORM

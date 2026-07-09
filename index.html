@@ -64,6 +64,7 @@
     </nav>
 
     <div id="introStage" class="intro-stage">
+      <div class="intro-stage-bg" aria-hidden="true"></div>
       <div id="storyLine" class="story-line"></div>
     </div>
 
@@ -211,7 +212,11 @@
         class="scene showreel-scene"
         aria-hidden="true"
       >
-        <div class="showreel-intro">
+        <!-- =====================================================
+       SHOWREEL INTRO
+       ===================================================== -->
+
+        <div id="showreelIntro" class="showreel-intro">
           <div class="showreel-line showreel-line-1">NON È UNA CANZONE.</div>
 
           <div class="showreel-line showreel-line-2">È UNO SPETTACOLO.</div>
@@ -220,7 +225,23 @@
             <span class="showreel-play-icon">▶</span>
             <span>GUARDA IL PROMO UFFICIALE</span>
           </button>
+
+          <div class="showreel-audience">
+            <div class="showreel-audience-title">VISTO DA CHI ERA LÌ.</div>
+
+            <p class="showreel-audience-copy">
+              Momenti dello show ETB catturati e condivisi dal pubblico.
+            </p>
+
+            <button id="showreelExplore" class="showreel-youtube" type="button">
+              OLTRE IL PROMO ↗
+            </button>
+          </div>
         </div>
+
+        <!-- =====================================================
+       SHOWREEL VIDEO
+       ===================================================== -->
 
         <video
           id="showreelVideo"
@@ -231,6 +252,167 @@
         >
           <source src="assets/images/promo-etb.mp4" type="video/mp4" />
         </video>
+        <!-- =====================================================
+     OLTRE IL PROMO
+     ===================================================== -->
+
+        <div id="showreelGallery" class="showreel-gallery" aria-hidden="true">
+          <div class="showreel-gallery-head">
+            <div class="showreel-gallery-kicker">OLTRE IL PROMO.</div>
+
+            <div class="showreel-gallery-manifesto">
+              LIVE DAL PUBBLICO.
+              <span>PERFORMANCE TV.</span>
+              MOMENTI ETB.
+            </div>
+          </div>
+
+          <div class="showreel-gallery-content">
+            <!-- =====================================================
+         ETB VISTI DA CHI ERA LÌ
+         ===================================================== -->
+
+            <div class="showreel-video-panel showreel-live-block">
+              <div class="showreel-panel-head">
+                <div class="showreel-panel-title">ETB VISTI DAL PUBBLICO</div>
+
+                <div class="showreel-panel-subtitle">LIVE DAL PUBBLICO</div>
+              </div>
+
+              <div class="showreel-video-column">
+                <a
+                  class="showreel-card showreel-card-live"
+                  href="https://www.youtube.com/watch?v=7wbwuNr4x2g"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="assets/images/youtube/cose-della-vita.jpg"
+                    alt="Cose della vita - ETB live"
+                  />
+
+                  <div class="showreel-card-shade"></div>
+
+                  <div class="showreel-card-copy">
+                    <div class="showreel-card-title">COSE DELLA VITA</div>
+
+                    <div class="showreel-card-meta">ETB · LIVE</div>
+                  </div>
+
+                  <span class="showreel-card-play">▶</span>
+                </a>
+
+                <a
+                  class="showreel-card showreel-card-live"
+                  href="https://www.youtube.com/watch?v=Uu_uuLgbPtQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="assets/images/youtube/una-storia-importante.jpg"
+                    alt="Una storia importante - ETB live"
+                  />
+
+                  <div class="showreel-card-shade"></div>
+
+                  <div class="showreel-card-copy">
+                    <div class="showreel-card-title">UNA STORIA IMPORTANTE</div>
+
+                    <div class="showreel-card-meta">ETB · LIVE</div>
+                  </div>
+
+                  <span class="showreel-card-play">▶</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- =====================================================
+         ETB IN TV
+         ===================================================== -->
+
+            <div class="showreel-video-panel showreel-tv-block">
+              <div class="showreel-panel-head">
+                <div class="showreel-panel-title">ETB IN TV</div>
+
+                <div class="showreel-panel-subtitle">
+                  FESTIVAL ITALIA IN MUSICA · LAZIO TV
+                </div>
+              </div>
+
+              <div class="showreel-video-column">
+                <a
+                  class="showreel-card showreel-card-tv"
+                  href="https://www.youtube.com/watch?v=AcxtzUMbStc&t"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="assets/images/youtube/medley-tv.jpg"
+                    alt="Medley Eros Ramazzotti - ETB TV performance"
+                  />
+
+                  <div class="showreel-card-shade"></div>
+
+                  <div class="showreel-card-copy">
+                    <div class="showreel-card-title">
+                      MEDLEY EROS RAMAZZOTTI
+                    </div>
+                  </div>
+
+                  <span class="showreel-card-play">▶</span>
+                </a>
+
+                <a
+                  class="showreel-card showreel-card-tv"
+                  href="https://www.youtube.com/watch?v=sU3zXvA4uTs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="assets/images/youtube/piu-bella-cosa-tv.jpg"
+                    alt="Più bella cosa - ETB TV performance"
+                  />
+
+                  <div class="showreel-card-shade"></div>
+
+                  <div class="showreel-card-copy">
+                    <div class="showreel-card-title">PIÙ BELLA COSA</div>
+                  </div>
+
+                  <span class="showreel-card-play">▶</span>
+                </a>
+
+                <a
+                  class="showreel-card showreel-card-tv"
+                  href="https://www.youtube.com/watch?v=0V2D1NXu-xw&t"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="assets/images/youtube/terra-promessa-tv.jpg"
+                    alt="Terra promessa - ETB TV performance"
+                  />
+
+                  <div class="showreel-card-shade"></div>
+
+                  <div class="showreel-card-copy">
+                    <div class="showreel-card-title">TERRA PROMESSA</div>
+                  </div>
+
+                  <span class="showreel-card-play">▶</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <button
+            id="showreelGalleryBack"
+            class="showreel-gallery-back"
+            type="button"
+          >
+            ← TORNA ALLO SHOWREEL
+          </button>
+        </div>
       </section>
 
       <section id="datesScene" class="scene dates-scene" aria-hidden="true">
@@ -266,8 +448,14 @@
         aria-hidden="true"
       >
         <div class="contacts-visual">
-          <div class="contacts-shade"></div>
+          <img
+            class="contacts-background"
+            src="assets/images/contatti.png"
+            alt=""
+            aria-hidden="true"
+          />
 
+          <div class="contacts-shade"></div>
           <div class="contacts-content">
             <div class="contacts-kicker">BOOKING ETB</div>
             <h2 class="contacts-title">CONTATTI & PREVENTIVO</h2>
@@ -423,13 +611,10 @@
 
     <script src="js/timing.js"></script>
     <script src="js/dates.js"></script>
-    <script src="js/dates.js"></script>
     <script src="js/quote-engine.js"></script>
     <script src="js/route-service.js"></script>
     <script src="js/app.js"></script>
     <script src="js/storyboard.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/quote-engine.js"></script>
-    <script src="js/app.js"></script>
   </body>
 </html>
