@@ -18,7 +18,7 @@ const ETB_QUOTE_CONFIG = {
   vanKmPerLiter: 10,
 
   highDemandMultiplier: 1.5,
-  
+
   estimatedTollPerKmOneWay: 0.09,
 
   musicians: {
@@ -65,6 +65,73 @@ function calculateFuelCost(distanceKmRoundTrip, kmPerLiter) {
   return liters * ETB_QUOTE_CONFIG.fuelPricePerLiter;
 }
 
+function buildQuoteTechnicalDetails({
+  eventDate,
+  distanceKmOneWay,
+  tollOneWay,
+  lineup,
+  locationType,
+  serviceOption,
+  musicians = null,
+  feePerMusician = null,
+  artisticFee = null,
+  travelCost = null,
+  selectedTravelMode = null,
+  highDemand = false,
+  total = null,
+  separateCarsCost = null,
+  vanPlusCarCost = null,
+}) {
+  const roundTripKm = distanceKmOneWay * 2;
+  const roundTripToll = tollOneWay * 2;
+
+  return {
+    originCity: ETB_QUOTE_CONFIG.originCity,
+    eventDate,
+    locationType,
+    serviceOption,
+    lineup,
+
+    maxAutomaticDistanceKm: ETB_QUOTE_CONFIG.maxAutomaticDistanceKm,
+    freeTravelUntilKm: ETB_QUOTE_CONFIG.freeTravelUntilKm,
+
+    distanceKmOneWay,
+    roundTripKm,
+
+    tollOneWay,
+    roundTripToll,
+    estimatedTollPerKmOneWay: ETB_QUOTE_CONFIG.estimatedTollPerKmOneWay,
+
+    fuelPricePerLiter: ETB_QUOTE_CONFIG.fuelPricePerLiter,
+    carKmPerLiter: ETB_QUOTE_CONFIG.carKmPerLiter,
+    vanKmPerLiter: ETB_QUOTE_CONFIG.vanKmPerLiter,
+    vanDailyCost: ETB_QUOTE_CONFIG.vanDailyCost,
+
+    highDemand,
+    highDemandMultiplier: ETB_QUOTE_CONFIG.highDemandMultiplier,
+    highDemandPeriod: "10–20 agosto",
+
+    musicians,
+    feePerMusician,
+    artisticFee,
+
+    selectedTravelMode,
+    separateCarsCost,
+    vanPlusCarCost,
+    travelCost,
+
+    total,
+
+    feeBands: ETB_QUOTE_CONFIG.feeBands,
+  };
+}
+
+// Arrotondamento alle 50 Euro superiori preventivo al cliente
+function roundUpTo50(value) {
+  return Math.ceil(value / 50) * 50;
+}
+//*********************************** */
+
 function calculateEtbQuote({
   eventDate,
   distanceKmOneWay,
@@ -73,19 +140,62 @@ function calculateEtbQuote({
   serviceOption = "available",
   locationType = null,
 }) {
+  const musicians =
+    lineup === "reduced"
+      ? ETB_QUOTE_CONFIG.musicians.reduced
+      : ETB_QUOTE_CONFIG.musicians.full;
+
+  const estimatedTollOneWay =
+    distanceKmOneWay * ETB_QUOTE_CONFIG.estimatedTollPerKmOneWay;
+
+  const roundTripKm = distanceKmOneWay * 2;
+  const roundTripToll = estimatedTollOneWay * 2;
+  const highDemand = isHighDemandDate(eventDate);
+
+  const buildTechnicalDetails = (extra = {}) => ({
+    originCity: ETB_QUOTE_CONFIG.originCity,
+
+    eventDate,
+    locationType,
+    serviceOption,
+    lineup,
+    musicians,
+
+    distanceKmOneWay,
+    roundTripKm,
+
+    tollOneWay: estimatedTollOneWay,
+    roundTripToll,
+    estimatedTollPerKmOneWay: ETB_QUOTE_CONFIG.estimatedTollPerKmOneWay,
+    tollCalculationMethod:
+      "Stima prudenziale applicata sempre: distanza sola andata × costo stimato €/km",
+
+    maxAutomaticDistanceKm: ETB_QUOTE_CONFIG.maxAutomaticDistanceKm,
+    freeTravelUntilKm: ETB_QUOTE_CONFIG.freeTravelUntilKm,
+
+    fuelPricePerLiter: ETB_QUOTE_CONFIG.fuelPricePerLiter,
+    carKmPerLiter: ETB_QUOTE_CONFIG.carKmPerLiter,
+    vanKmPerLiter: ETB_QUOTE_CONFIG.vanKmPerLiter,
+    vanDailyCost: ETB_QUOTE_CONFIG.vanDailyCost,
+
+    highDemand,
+    highDemandPeriod: "10–20 agosto",
+    highDemandMultiplier: ETB_QUOTE_CONFIG.highDemandMultiplier,
+
+    feeBands: ETB_QUOTE_CONFIG.feeBands,
+
+    ...extra,
+  });
+
   if (locationType !== "A" || serviceOption !== "available") {
     return {
       automaticQuoteAvailable: false,
       reason: "MANUAL_REVIEW_REQUIRED",
       message:
         "La tipologia di evento indicata richiede una verifica tecnica e organizzativa. Il booking ETB ti ricontatterà con una proposta personalizzata.",
+      technicalDetails: buildTechnicalDetails(),
     };
   }
-
-  const musicians =
-    lineup === "reduced"
-      ? ETB_QUOTE_CONFIG.musicians.reduced
-      : ETB_QUOTE_CONFIG.musicians.full;
 
   if (distanceKmOneWay > ETB_QUOTE_CONFIG.maxAutomaticDistanceKm) {
     return {
@@ -93,10 +203,9 @@ function calculateEtbQuote({
       reason: "DISTANCE_OVER_LIMIT",
       message:
         "La località indicata supera il raggio previsto per la stima automatica. È necessaria una valutazione dedicata del booking ETB.",
+      technicalDetails: buildTechnicalDetails(),
     };
   }
-
-  const highDemand = isHighDemandDate(eventDate);
 
   let feePerMusician = getFeePerMusician(distanceKmOneWay);
 
@@ -104,8 +213,13 @@ function calculateEtbQuote({
     return {
       automaticQuoteAvailable: false,
       reason: "NO_FEE_BAND",
+      message:
+        "Non è stata trovata una fascia economica compatibile con la distanza indicata.",
+      technicalDetails: buildTechnicalDetails(),
     };
   }
+
+  const baseFeePerMusician = feePerMusician;
 
   if (highDemand) {
     feePerMusician *= ETB_QUOTE_CONFIG.highDemandMultiplier;
@@ -113,19 +227,18 @@ function calculateEtbQuote({
 
   const artisticFee = feePerMusician * musicians;
 
-  const roundTripKm = distanceKmOneWay * 2;
-  const roundTripToll = tollOneWay * 2;
-
   let travelCost = 0;
   let selectedTravelMode = "TRASFERTA GRATUITA";
+  let separateCarsCost = 0;
+  let vanPlusCarCost = 0;
 
   if (distanceKmOneWay > ETB_QUOTE_CONFIG.freeTravelUntilKm) {
-    const separateCarsCost =
+    separateCarsCost =
       musicians *
         calculateFuelCost(roundTripKm, ETB_QUOTE_CONFIG.carKmPerLiter) +
       musicians * roundTripToll;
 
-    const vanPlusCarCost =
+    vanPlusCarCost =
       ETB_QUOTE_CONFIG.vanDailyCost +
       calculateFuelCost(roundTripKm, ETB_QUOTE_CONFIG.vanKmPerLiter) +
       calculateFuelCost(roundTripKm, ETB_QUOTE_CONFIG.carKmPerLiter) +
@@ -142,6 +255,8 @@ function calculateEtbQuote({
 
   const total = artisticFee + travelCost;
 
+  const commercialTotal = roundUpTo50(total);
+
   return {
     automaticQuoteAvailable: true,
 
@@ -150,22 +265,37 @@ function calculateEtbQuote({
 
     distanceKmOneWay,
     roundTripKm,
-    tollOneWay,
+    tollOneWay: estimatedTollOneWay,
     roundTripToll,
 
     highDemand,
     requiresBookingConfirmation: highDemand,
 
+    baseFeePerMusician,
     feePerMusician,
     artisticFee,
 
     travelCost,
     selectedTravelMode,
+    separateCarsCost,
+    vanPlusCarCost,
 
     total,
+    commercialTotal,
+
+    technicalDetails: buildTechnicalDetails({
+      baseFeePerMusician,
+      feePerMusician,
+      artisticFee,
+      selectedTravelMode,
+      separateCarsCost,
+      vanPlusCarCost,
+      travelCost,
+      total,
+      commercialTotal,
+    }),
   };
 }
-
 function formatEuro(value) {
   return new Intl.NumberFormat("it-IT", {
     style: "currency",

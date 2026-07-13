@@ -3,10 +3,12 @@
 // Questo file resta disponibile per future inizializzazioni globali.
 document.body.classList.add("intro-mode");
 
-const navBand = document.querySelector('a[href="#band"]');
 const navHome = document.querySelector('a[href="#home"]');
+const navProject = document.querySelector('a[href="#project"]');
+const navBand = document.querySelector('a[href="#band"]');
 
 const heroScene = document.getElementById("hero");
+const projectScene = document.getElementById("projectScene");
 const bandScene = document.getElementById("bandScene");
 
 const navShowreel = document.querySelector('a[href="#showreel"]');
@@ -23,6 +25,9 @@ const contactsScene = document.getElementById("contactsScene");
 
 const showreelExplore = document.getElementById("showreelExplore");
 const showreelGalleryBack = document.getElementById("showreelGalleryBack");
+
+const projectToBand = document.getElementById("projectToBand");
+const projectToShowreel = document.getElementById("projectToShowreel");
 
 showreelExplore?.addEventListener("click", () => {
   showreelScene.classList.add("is-gallery");
@@ -46,6 +51,13 @@ function goToScene(sceneName) {
   showreelGallery?.setAttribute("aria-hidden", "true");
 
   heroScene.classList.add("scene-hidden");
+  if (projectScene) {
+    projectScene.classList.remove("is-active");
+    projectScene.setAttribute("aria-hidden", "true");
+  }
+
+  projectScene.classList.remove("is-active");
+  projectScene.setAttribute("aria-hidden", "true");
 
   bandScene.classList.remove("is-active");
   bandScene.setAttribute("aria-hidden", "true");
@@ -58,6 +70,16 @@ function goToScene(sceneName) {
 
   if (sceneName === "home") {
     heroScene.classList.remove("scene-hidden");
+  }
+
+  if (sceneName === "project" && projectScene) {
+    projectScene.classList.add("is-active");
+    projectScene.setAttribute("aria-hidden", "false");
+  }
+
+  if (sceneName === "project") {
+    projectScene.classList.add("is-active");
+    projectScene.setAttribute("aria-hidden", "false");
   }
 
   if (sceneName === "band") {
@@ -123,6 +145,11 @@ navShowreel?.addEventListener("click", (e) => {
   goToScene("showreel");
 });
 
+navProject?.addEventListener("click", (e) => {
+  e.preventDefault();
+  goToScene("project");
+});
+
 navBand?.addEventListener("click", (e) => {
   e.preventDefault();
   goToScene("band");
@@ -144,6 +171,14 @@ showreelPlay?.addEventListener("click", () => {
 navContacts?.addEventListener("click", (e) => {
   e.preventDefault();
   goToScene("contacts");
+});
+
+projectToBand?.addEventListener("click", () => {
+  goToScene("band");
+});
+
+projectToShowreel?.addEventListener("click", () => {
+  goToScene("showreel");
 });
 
 const members = {
@@ -287,6 +322,19 @@ document.querySelectorAll("#topnav a").forEach((link) => {
 const datesList = document.getElementById("datesList");
 const datesArchiveToggle = document.getElementById("datesArchiveToggle");
 const datesHeading = document.querySelector(".dates-heading");
+
+const eventDateInput = document.getElementById("eventDate");
+
+if (eventDateInput) {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const year = tomorrow.getFullYear();
+  const month = String(tomorrow.getMonth() + 1).padStart(2, "0");
+  const day = String(tomorrow.getDate()).padStart(2, "0");
+
+  eventDateInput.min = `${year}-${month}-${day}`;
+}
 
 let datesArchiveVisible = false;
 
@@ -524,38 +572,178 @@ contactMethodSelect?.addEventListener("change", () => {
 const quoteForm = document.getElementById("quoteForm");
 const quoteResult = document.getElementById("quoteResult");
 
+/*====================================================
+  PREVIEW EMAIL
+  ==================================================== */
+function buildCustomerEmailPreview(payload) {
+  const { event, quote, contacts } = payload;
+
+  if (quote.automaticQuoteAvailable) {
+    return `
+ETB — EROS RAMAZZOTTI TRIBUTE BAND
+
+Grazie ${event.clientName} per averci contattato.
+
+Abbiamo elaborato la tua richiesta per il live ETB.
+
+DATI EVENTO
+
+Data: ${event.eventDate}
+Località: ${event.eventLocation}
+Formazione: ${quote.musicians} musicisti
+
+STIMA INDICATIVA
+
+${formatEuro(quote.commercialTotal)}
+
+L'importo costituisce una prima stima automatica e non rappresenta
+conferma definitiva della disponibilità o dell'ingaggio.
+
+Per qualsiasi ulteriore informazione puoi contattarci ai numeri:
+
+${contacts.phone1}
+${contacts.phone2}
+
+Gli stessi numeri sono disponibili anche per messaggi WhatsApp.
+
+ETB
+Eros Ramazzotti Tribute Band
+    `.trim();
+  }
+
+  return `
+ETB — EROS RAMAZZOTTI TRIBUTE BAND
+
+Grazie ${event.clientName} per averci contattato.
+
+Abbiamo ricevuto la tua richiesta per il live ETB.
+
+DATI EVENTO
+
+Data: ${event.eventDate}
+Località: ${event.eventLocation}
+
+Non è stato possibile elaborare automaticamente una stima economica.
+
+Motivo:
+${quote.message}
+
+La tua richiesta è stata comunque ricevuta dal booking ETB.
+Sarai ricontattato per ricevere una valutazione personalizzata.
+
+Per qualsiasi ulteriore informazione puoi contattarci ai numeri:
+
+${contacts.phone1}
+${contacts.phone2}
+
+Gli stessi numeri sono disponibili anche per messaggi WhatsApp.
+
+ETB
+Eros Ramazzotti Tribute Band
+  `.trim();
+}
+
+function buildEtbEmailPreview(payload) {
+  const { customerEmail, event, route, quote } = payload;
+
+  return `
+NUOVA RICHIESTA PREVENTIVO ETB
+
+CLIENTE
+
+Nome: ${event.clientName}
+Email: ${customerEmail}
+
+EVENTO
+
+Data: ${event.eventDate}
+Località: ${event.eventLocation}
+Tipo location: ${event.locationType}
+Formazione richiesta: ${event.lineup}
+Service: ${event.serviceOption}
+Note: ${event.notes || "Nessuna nota"}
+
+CALCOLO TRASFERTA
+
+Distanza da Roma: ${route.distanceKmOneWay} km
+Pedaggio stimato sola andata: ${formatEuro(route.tollOneWay)}
+
+ESITO MOTORE PREVENTIVO
+
+Preventivo automatico: ${quote.automaticQuoteAvailable ? "SI" : "NO"}
+
+Musicisti: ${quote.musicians ?? "N/D"}
+Alta richiesta: ${quote.highDemand ? "SI" : "NO"}
+
+Totale matematico calcolato: ${
+    quote.automaticQuoteAvailable ? formatEuro(quote.total) : "NON EMESSO"
+  }
+
+Arrotondamento commerciale: per eccesso a multipli di € 50
+
+Importo comunicato al cliente: ${
+    quote.automaticQuoteAvailable
+      ? formatEuro(quote.commercialTotal)
+      : "NON EMESSO"
+  }
+
+Motivo / messaggio motore:
+${quote.message || "Nessun blocco automatico"}
+
+DATI TECNICI COMPLETI
+
+${JSON.stringify(quote, null, 2)}
+  `.trim();
+}
+
+/*====================================================
+  FINE PREVIEW EMAIL
+  ==================================================== */
 quoteForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+  quoteResult.className = "quote-inline-result";
+
   try {
     const eventDate = document.getElementById("eventDate").value;
-    const locationType = document.getElementById("locationType").value;
-    const serviceOption = document.getElementById("serviceOption").value;
-    const lineup = document.getElementById("lineup").value;
+    const selectedDate = new Date(`${eventDate}T00:00:00`);
 
-    const contactMethod = document.getElementById("contactMethod").value;
-    const contactValue = document.getElementById("contactValue").value.trim();
+    const tomorrow = new Date();
+    tomorrow.setHours(0, 0, 0, 0);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\+?[0-9\s]{8,18}$/;
-
-    if (
-      (contactMethod === "email" && !emailRegex.test(contactValue)) ||
-      (contactMethod === "whatsapp" && !phoneRegex.test(contactValue))
-    ) {
-      quoteResult.innerHTML = `
-    <div class="quote-note">
-      Inserisci un contatto valido per ricevere il preventivo.
-    </div>
-  `;
+    if (selectedDate < tomorrow) {
+      quoteResult.classList.add("is-error");
+      quoteResult.textContent =
+        "La data dell'evento deve essere successiva alla data odierna.";
       return;
     }
 
-    quoteResult.innerHTML = `
-      <div class="quote-note">
-        Calcolo distanza e trasferta in corso...
-      </div>
-    `;
+    const locationType = document.getElementById("locationType").value;
+    const serviceOption = document.getElementById("serviceOption").value;
+    const lineup = document.getElementById("lineup").value;
+    const eventNotes = document.getElementById("eventNotes").value.trim();
+
+    const customerEmail = document.getElementById("customerEmail").value.trim();
+    const customerEmailConfirm = document
+      .getElementById("customerEmailConfirm")
+      .value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(customerEmail)) {
+      quoteResult.classList.add("is-error");
+      quoteResult.textContent = "Inserisci un indirizzo email valido.";
+      return;
+    }
+
+    if (customerEmail !== customerEmailConfirm) {
+      quoteResult.classList.add("is-error");
+      quoteResult.textContent = "Le due email inserite non coincidono.";
+      return;
+    }
+
+    quoteResult.textContent = "Elaborazione richiesta in corso...";
 
     const route = await getRouteEstimate();
 
@@ -568,59 +756,185 @@ quoteForm?.addEventListener("submit", async (event) => {
       locationType,
     });
 
-    if (!quote.automaticQuoteAvailable) {
-      quoteResult.innerHTML = `
-        <div class="quote-total">
-          VALUTAZIONE DEDICATA
-        </div>
+    const customerPhone = document.getElementById("customerPhone").value.trim();
 
-        <div class="quote-note">
-          ${quote.message}
-        </div>
-      `;
+    const normalizedPhone = customerPhone.replace(/[^\d+]/g, "");
 
+    const phoneDigits = normalizedPhone.replace(/\D/g, "");
+
+    if (phoneDigits.length < 8 || phoneDigits.length > 15) {
+      quoteResult.classList.add("is-error");
+      quoteResult.textContent =
+        "Inserisci un numero di telefono valido, comprensivo di prefisso.";
       return;
     }
 
-    const highDemandMessage = quote.highDemand
-      ? `
-        <div class="quote-note">
-          <strong>DATA AD ALTA RICHIESTA</strong><br><br>
-          La data selezionata rientra in uno dei periodi di maggiore attività live.
-          La stima economica è indicativa e sarà confermata dal booking ETB.
-        </div>
-      `
-      : "";
+    const payload = {
+      customerEmail,
+      customerPhone: normalizedPhone,
 
-    quoteResult.innerHTML = `
-      <div class="quote-total">
-        ${formatEuro(quote.total)}
-      </div>
+      bookingEmail: window.ETB_CONFIG.bookingEmail,
+      contacts: window.ETB_CONFIG.contacts,
 
-      <div class="quote-note">
-        STIMA INDICATIVA DEL LIVE<br><br>
-        Formazione: ${quote.musicians} musicisti<br>
-        Distanza indicativa da Roma: ${quote.distanceKmOneWay} km
-      </div>
+      event: {
+        clientName: document.getElementById("clientName").value.trim(),
+        eventDate,
+        eventLocation: document.getElementById("eventLocation").value.trim(),
+        locationType,
+        serviceOption,
+        lineup,
+        notes: eventNotes,
+      },
 
-      ${highDemandMessage}
+      route,
+      quote,
+    };
 
-      <div class="quote-note">
-        L'importo indicato costituisce una prima stima automatica
-        e non rappresenta conferma definitiva della disponibilità o dell'ingaggio.
-      </div>
-    `;
+    /* ========================================================
+     Aggiunti per monitoraggio email da console
+     ======================================================= */
+    console.log("ETB SEND QUOTE PAYLOAD", payload);
+
+    console.log(
+      "===== EMAIL CLIENTE =====\n",
+      buildCustomerEmailPreview(payload),
+    );
+
+    console.log("===== EMAIL ETB =====\n", buildEtbEmailPreview(payload));
+
+    /* ========================================================
+     Fine aggiunta
+     ======================================================= */
+
+    await sendEtbQuoteEmails(payload);
+
+    quoteResult.classList.add("is-success");
+
+    if (quote.automaticQuoteAvailable) {
+      quoteResult.textContent =
+        "Preventivo automatico inviato con successo alla tua email indicata.";
+    } else {
+      quoteResult.textContent =
+        "La richiesta è stata inviata con successo a ETB. Sarete presto ricontattati.";
+    }
   } catch (error) {
-    quoteResult.innerHTML = `
-      <div class="quote-total">
-        ERRORE CALCOLO
-      </div>
-
-      <div class="quote-note">
-        ${error.message}
-      </div>
-    `;
+    quoteResult.classList.add("is-error");
+    quoteResult.textContent = `Si è verificato l’errore: "${error.message}"`;
 
     console.error("Errore preventivo ETB:", error);
   }
 });
+
+const privacyPolicyModal = document.getElementById("privacyPolicyModal");
+const privacyPolicyLink = document.getElementById("privacyPolicyLink");
+
+const privacyPolicyCloseElements = document.querySelectorAll(
+  "[data-privacy-close]",
+);
+
+function openPrivacyPolicy() {
+  if (!privacyPolicyModal) return;
+
+  privacyPolicyModal.classList.add("is-open");
+  privacyPolicyModal.setAttribute("aria-hidden", "false");
+
+  document.body.classList.add("privacy-modal-open");
+
+  const closeButton = document.getElementById("privacyPolicyClose");
+
+  if (closeButton) {
+    closeButton.focus();
+  }
+}
+
+function closePrivacyPolicy() {
+  if (!privacyPolicyModal) return;
+
+  privacyPolicyModal.classList.remove("is-open");
+  privacyPolicyModal.setAttribute("aria-hidden", "true");
+
+  document.body.classList.remove("privacy-modal-open");
+}
+
+if (privacyPolicyLink) {
+  privacyPolicyLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    openPrivacyPolicy();
+  });
+}
+
+privacyPolicyCloseElements.forEach((element) => {
+  element.addEventListener("click", closePrivacyPolicy);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (
+    event.key === "Escape" &&
+    privacyPolicyModal?.classList.contains("is-open")
+  ) {
+    closePrivacyPolicy();
+  }
+});
+
+const lineupHelpTrigger = document.getElementById("lineupHelpTrigger");
+const lineupHelpTooltip = document.getElementById("lineupHelpTooltip");
+
+function openLineupHelp() {
+  if (!lineupHelpTrigger || !lineupHelpTooltip) return;
+
+  lineupHelpTooltip.classList.add("is-open");
+  lineupHelpTooltip.setAttribute("aria-hidden", "false");
+  lineupHelpTrigger.setAttribute("aria-expanded", "true");
+}
+
+function closeLineupHelp() {
+  if (!lineupHelpTrigger || !lineupHelpTooltip) return;
+
+  lineupHelpTooltip.classList.remove("is-open");
+  lineupHelpTooltip.setAttribute("aria-hidden", "true");
+  lineupHelpTrigger.setAttribute("aria-expanded", "false");
+}
+
+if (lineupHelpTrigger && lineupHelpTooltip) {
+  lineupHelpTrigger.addEventListener("mouseenter", openLineupHelp);
+  lineupHelpTrigger.addEventListener("focus", openLineupHelp);
+
+  lineupHelpTrigger.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const isOpen = lineupHelpTooltip.classList.contains("is-open");
+
+    if (isOpen) {
+      closeLineupHelp();
+    } else {
+      openLineupHelp();
+    }
+  });
+
+  lineupHelpTooltip.addEventListener("mouseenter", openLineupHelp);
+
+  lineupHelpTrigger.addEventListener("mouseleave", () => {
+    window.setTimeout(() => {
+      if (!lineupHelpTooltip.matches(":hover")) {
+        closeLineupHelp();
+      }
+    }, 120);
+  });
+
+  lineupHelpTooltip.addEventListener("mouseleave", closeLineupHelp);
+
+  document.addEventListener("click", (event) => {
+    if (
+      !lineupHelpTrigger.contains(event.target) &&
+      !lineupHelpTooltip.contains(event.target)
+    ) {
+      closeLineupHelp();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeLineupHelp();
+    }
+  });
+}
