@@ -30,12 +30,14 @@ export async function onRequestGet(context) {
 
     return jsonResponse({ success: true, places });
   } catch (error) {
-    console.error("ETB places error:", error);
+    console.error("ETB places error:");
+    console.error(error);
+    console.error(error?.stack);
 
     return jsonResponse(
       {
         success: false,
-        error: "Non è stato possibile cercare la località.",
+        error: String(error?.message || error),
       },
       502,
     );
