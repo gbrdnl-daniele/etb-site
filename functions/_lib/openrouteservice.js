@@ -3,11 +3,9 @@
    ORS_API_KEY è salvata come Secret Cloudflare.
    ========================================================= */
 
-const ORS_DIRECTIONS_URL =
-  "https://api.heigit.org/openrouteservice";
+const ORS_DIRECTIONS_URL = "https://api.openrouteservice.org";
 
-const ORS_GEOCODING_URL =
-  "https://api.heigit.org/pelias/v1";
+const ORS_GEOCODING_URL = "https://api.openrouteservice.org/geocode";
 
 const ETB_ORIGIN = {
   label: "Roma, Italia",
@@ -21,11 +19,7 @@ async function readJsonOrThrow(response, genericMessage) {
   if (!response.ok) {
     console.error("OpenRouteService error:", response.status, data);
 
-    throw new Error(
-      data?.error?.message ||
-        data?.message ||
-        genericMessage,
-    );
+    throw new Error(data?.error?.message || data?.message || genericMessage);
   }
 
   return data;
@@ -74,9 +68,7 @@ export async function geocodePlace(apiKey, placeLabel) {
   const feature = data.features?.[0];
 
   if (!feature?.geometry?.coordinates) {
-    throw new Error(
-      "La località indicata non è stata trovata.",
-    );
+    throw new Error("La località indicata non è stata trovata.");
   }
 
   return {
@@ -114,20 +106,14 @@ export async function calculateRoute(apiKey, destination) {
   const summary = data.routes?.[0]?.summary;
 
   if (!summary) {
-    throw new Error(
-      "Il percorso per la località indicata non è disponibile.",
-    );
+    throw new Error("Il percorso per la località indicata non è disponibile.");
   }
 
   return {
     origin: ETB_ORIGIN.label,
     destination: destination.label,
-    distanceKmOneWay: Math.ceil(
-      summary.distance / 1000,
-    ),
-    durationMinutes: Math.ceil(
-      summary.duration / 60,
-    ),
+    distanceKmOneWay: Math.ceil(summary.distance / 1000),
+    durationMinutes: Math.ceil(summary.duration / 60),
     source: "openrouteservice-heigit",
   };
 }
