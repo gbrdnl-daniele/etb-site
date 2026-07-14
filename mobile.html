@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <title>ETB Eros Ramazzotti Tribute Band</title>
+
+    <meta
+      name="description"
+      content="ETB Eros Ramazzotti Tribute Band. Otto musicisti, uno spettacolo live dedicato alla musica e alle emozioni di Eros Ramazzotti."
+    />
+
+    <link
+      rel="icon"
+      href="assets/images/etb-logo.png"
+      type="image/png"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/mobile.css" />
+  </head>
+
+  <body>
+    <main class="mobile-app">
+      <header class="mobile-header">
+        <img
+          class="mobile-header-logo"
+          src="assets/images/etb-logo.png"
+          alt="ETB Eros Ramazzotti Tribute Band"
+        />
+
+        <button
+          id="mobileMenuOpen"
+          class="mobile-menu-button"
+          type="button"
+          aria-label="Apri il menu"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
+      <section class="mobile-hero">
+        <div class="mobile-hero-image" aria-hidden="true"></div>
+        <div class="mobile-hero-shade" aria-hidden="true"></div>
+
+        <div class="mobile-hero-content">
+          <img
+            class="mobile-hero-logo"
+            src="assets/images/etb-logo.png"
+            alt=""
+            aria-hidden="true"
+          />
+
+          <p class="mobile-hero-identity">
+            EROS RAMAZZOTTI
+            <span>TRIBUTE BAND</span>
+          </p>
+
+          <h1 class="mobile-hero-title">
+            NON CERCHIAMO
+            <strong>L’IMITAZIONE.</strong>
+
+            <i aria-hidden="true"></i>
+
+            CERCHIAMO
+            <strong>L’EMOZIONE.</strong>
+          </h1>
+
+          <a class="mobile-primary-action" href="#showreel">
+            <span aria-hidden="true">▶</span>
+            GUARDA IL PROMO
+          </a>
+
+          <a class="mobile-scroll-cue" href="#mobileSections">
+            <span aria-hidden="true">⌄</span>
+            SCORRI
+          </a>
+        </div>
+      </section>
+
+      <nav
+        id="mobileSections"
+        class="mobile-section-list"
+        aria-label="Sezioni principali"
+      >
+        <a class="mobile-section-card" href="#project">
+          <strong>IL PROGETTO</strong>
+          <span>La nostra idea di tributo.</span>
+        </a>
+
+        <a class="mobile-section-card" href="#band">
+          <strong>LA BAND</strong>
+          <span>Otto musicisti. Un’unica direzione.</span>
+        </a>
+
+        <a class="mobile-section-card" href="#showreel">
+          <strong>SHOWREEL</strong>
+          <span>Promo, live dal pubblico e TV.</span>
+        </a>
+
+        <a class="mobile-section-card" href="#dates">
+          <strong>DATE</strong>
+          <span>Prossimi live ETB.</span>
+        </a>
+
+        <a class="mobile-section-card" href="#contacts">
+          <strong>CONTATTI</strong>
+          <span>Booking e informazioni.</span>
+        </a>
+      </nav>
+
+      <section id="project" class="mobile-placeholder-section">
+        <h2>IL PROGETTO</h2>
+      </section>
+
+      <section id="band" class="mobile-placeholder-section">
+        <h2>LA BAND</h2>
+      </section>
+
+      <section id="showreel" class="mobile-placeholder-section">
+        <h2>SHOWREEL</h2>
+      </section>
+
+      <section id="dates" class="mobile-placeholder-section">
+        <h2>DATE</h2>
+      </section>
+
+      <section id="contacts" class="mobile-placeholder-section">
+        <h2>CONTATTI</h2>
+      </section>
+    </main>
+
+    <div
+      id="mobileMenu"
+      class="mobile-menu"
+      aria-hidden="true"
+    >
+      <button
+        id="mobileMenuClose"
+        class="mobile-menu-close"
+        type="button"
+        aria-label="Chiudi il menu"
+      >
+        ×
+      </button>
+
+      <img
+        class="mobile-menu-logo"
+        src="assets/images/etb-logo.png"
+        alt="ETB"
+      />
+
+      <nav aria-label="Menu mobile">
+        <a href="#">HOME</a>
+        <a href="#project">IL PROGETTO</a>
+        <a href="#band">LA BAND</a>
+        <a href="#showreel">SHOWREEL</a>
+        <a href="#dates">DATE</a>
+        <a href="#contacts">CONTATTI</a>
+      </nav>
+    </div>
+
+    <script src="js/mobile.js"></script>
+  </body>
+</html>
