@@ -2,8 +2,16 @@
    ETB BACKEND — EMAIL TEMPLATES
    ========================================================= */
 
-const LOGO_URL =
-  "https://etberostribute.it/assets/images/etb-logo.png";
+const LOGO_URL = "https://etberostribute.it/assets/images/etb-logo.png";
+
+const ETB_CONTACTS = {
+  phone1: "333.1234567",
+  phone2: "334.1234567",
+};
+
+function normalizePhoneHref(value = "") {
+  return String(value).replace(/[^\d+]/g, "");
+}
 
 function escapeHtml(value = "") {
   return String(value)
@@ -38,12 +46,14 @@ function formatEuro(value) {
 }
 
 function labelLocationType(value) {
-  return {
-    A: "Suolo pubblico · Piazza · Festa",
-    B: "Pub · Ristorante · Locale",
-    C: "Teatro · Auditorium",
-    D: "Cerimonia nuziale",
-  }[value] || value;
+  return (
+    {
+      A: "Suolo pubblico · Piazza · Festa",
+      B: "Pub · Ristorante · Locale",
+      C: "Teatro · Auditorium",
+      D: "Cerimonia nuziale",
+    }[value] || value
+  );
 }
 
 function labelLineup(value) {
@@ -171,8 +181,41 @@ export function buildCustomerEmailHtml({ event, quote }) {
             </tr>
             <tr>
               <td style="padding:24px 32px;background:#080705;border-top:1px solid #2c2114;font-family:Arial,sans-serif;color:#f2e7d5;line-height:1.7;">
-                <strong style="color:#c99a4a;">ETB Booking</strong><br />
-                Puoi rispondere direttamente a questa email.
+               
+                <strong style="color:#c99a4a;">Contatti ETB</strong><br />
+
+                <a
+                  href="tel:${normalizePhoneHref(ETB_CONTACTS.phone1)}"
+                  style="color:#fff4df;text-decoration:none;"
+                >
+                  ${escapeHtml(ETB_CONTACTS.phone1)}
+                </a>
+
+                ${
+                  ETB_CONTACTS.phone2
+                    ? `
+                      <br />
+                      <a
+                        href="tel:${normalizePhoneHref(ETB_CONTACTS.phone2)}"
+                        style="color:#fff4df;text-decoration:none;"
+                      >
+                        ${escapeHtml(ETB_CONTACTS.phone2)}
+                      </a>
+                    `
+                    : ""
+                }
+                <div
+                  style="
+                    margin-top:12px;
+                    color:#988b79;
+                    font-size:13px;
+                    line-height:1.6;
+                  "
+                >
+                  Gli stessi numeri sono disponibili anche tramite WhatsApp.
+                  <br />
+                  Puoi inoltre rispondere direttamente a questa email.
+                </div>
               </td>
             </tr>
           </table>
@@ -228,14 +271,43 @@ export function buildBookingEmailHtml({
   const rowsHtml = rows
     .map(
       ([label, value]) => `
-        <tr>
-          <td style="width:38%;padding:11px 14px;border-bottom:1px solid #342819;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#c99a4a;vertical-align:top;">
-            ${escapeHtml(label)}
-          </td>
-          <td style="padding:11px 14px;border-bottom:1px solid #342819;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#f2e7d5;vertical-align:top;">
-            ${escapeHtml(value)}
-          </td>
-        </tr>`,
+      <tr>
+        <td
+          width="38%"
+          style="
+            width:38%;
+            padding:11px 14px;
+            border-bottom:1px solid #342819;
+            font-family:Arial,sans-serif;
+            font-size:13px;
+            font-weight:700;
+            color:#c99a4a;
+            vertical-align:top;
+            overflow-wrap:anywhere;
+            word-break:break-word;
+          "
+        >
+          ${escapeHtml(label)}
+        </td>
+
+        <td
+          width="62%"
+          style="
+            width:62%;
+            padding:11px 14px;
+            border-bottom:1px solid #342819;
+            font-family:Arial,sans-serif;
+            font-size:14px;
+            line-height:1.5;
+            color:#f2e7d5;
+            vertical-align:top;
+            overflow-wrap:anywhere;
+            word-break:break-word;
+          "
+        >
+          ${escapeHtml(value)}
+        </td>
+      </tr>`,
     )
     .join("");
 
@@ -267,10 +339,23 @@ export function buildBookingEmailHtml({
         <h1 style="margin:0 0 24px;color:#fff4df;font-size:28px;">
           Nuova richiesta preventivo
         </h1>
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0"
-          style="width:100%;border-collapse:collapse;background:#100d09;border:1px solid #342819;">
-          ${rowsHtml}
-        </table>
+          
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            style="
+              width:100%;
+              border-collapse:collapse;
+              table-layout:fixed;
+              background:#100d09;
+              border:1px solid #342819;
+            "
+          >
+            ${rowsHtml}
+          </table>
+
         <div style="margin-top:28px;margin-bottom:10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#c99a4a;">
           JSON completo della richiesta
         </div>
