@@ -1,7 +1,7 @@
 // ETB — Configurazione generale sito
 
 window.ETB_CONFIG = {
-  bookingEmail: "etberostribute@gmail.com",
+  bookingEmail: "booking@etberostribute.it",
 
   contacts: {
     phone1: "333.1234567",
@@ -9,7 +9,7 @@ window.ETB_CONFIG = {
   },
 
   backend: {
-    mock: true,
+    mock: false,
     sendQuoteEndpoint: "/api/send-quote",
   },
 };

@@ -745,18 +745,7 @@ quoteForm?.addEventListener("submit", async (event) => {
 
     quoteResult.textContent = "Elaborazione richiesta in corso...";
 
-    const route = await getRouteEstimate();
-
-    const quote = calculateEtbQuote({
-      eventDate,
-      distanceKmOneWay: route.distanceKmOneWay,
-      tollOneWay: route.tollOneWay,
-      lineup,
-      serviceOption,
-      locationType,
-    });
-
-    const customerPhone = document.getElementById("customerPhone").value.trim();
+const customerPhone = document.getElementById("customerPhone").value.trim();
 
     const normalizedPhone = customerPhone.replace(/[^\d+]/g, "");
 
@@ -773,8 +762,11 @@ quoteForm?.addEventListener("submit", async (event) => {
       customerEmail,
       customerPhone: normalizedPhone,
 
-      bookingEmail: window.ETB_CONFIG.bookingEmail,
-      contacts: window.ETB_CONFIG.contacts,
+      marketingConsent:
+        document.getElementById("marketingConsent")?.checked === true,
+
+      // Campo honeypot invisibile: deve restare vuoto.
+      website: document.getElementById("website")?.value || "",
 
       event: {
         clientName: document.getElementById("clientName").value.trim(),
@@ -785,38 +777,13 @@ quoteForm?.addEventListener("submit", async (event) => {
         lineup,
         notes: eventNotes,
       },
-
-      route,
-      quote,
     };
 
-    /* ========================================================
-     Aggiunti per monitoraggio email da console
-     ======================================================= */
-    console.log("ETB SEND QUOTE PAYLOAD", payload);
-
-    console.log(
-      "===== EMAIL CLIENTE =====\n",
-      buildCustomerEmailPreview(payload),
-    );
-
-    console.log("===== EMAIL ETB =====\n", buildEtbEmailPreview(payload));
-
-    /* ========================================================
-     Fine aggiunta
-     ======================================================= */
-
-    await sendEtbQuoteEmails(payload);
+await sendEtbQuoteEmails(payload);
 
     quoteResult.classList.add("is-success");
-
-    if (quote.automaticQuoteAvailable) {
-      quoteResult.textContent =
-        "Preventivo automatico inviato con successo alla tua email indicata.";
-    } else {
-      quoteResult.textContent =
-        "La richiesta è stata inviata con successo a ETB. Sarete presto ricontattati.";
-    }
+    quoteResult.textContent =
+      "Richiesta inviata con successo. Controlla la casella email indicata.";
   } catch (error) {
     quoteResult.classList.add("is-error");
     quoteResult.textContent = `Si è verificato l’errore: "${error.message}"`;
