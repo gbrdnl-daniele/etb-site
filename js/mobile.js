@@ -775,13 +775,12 @@ if (startQuoteButton && quoteFormSection) {
   });
 
   /* ==========================================================
-   ANDROID AUTOFILL — MANTIENE VISIBILI I CAMPI EMAIL
+   ANDROID AUTOFILL — MANTIENE VISIBILI TUTTI I CAMPI DEL FORM
 ========================================================== */
 
-  const mobileEmailFields = [
-    document.getElementById("customerEmail"),
-    document.getElementById("customerEmailConfirm"),
-  ].filter(Boolean);
+  const mobileAutofillFields = quoteForm.querySelectorAll(
+    'input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]), select, textarea',
+  );
 
   function keepAutofilledFieldVisible(field) {
     window.setTimeout(() => {
@@ -790,14 +789,14 @@ if (startQuoteButton && quoteFormSection) {
         block: "center",
         inline: "nearest",
       });
-    }, 120);
+    }, 200);
   }
 
-  mobileEmailFields.forEach((field) => {
+  mobileAutofillFields.forEach((field) => {
     field.addEventListener("input", (event) => {
       /*
-      insertReplacementText viene spesso usato da Android
-      quando inserisce un valore tramite autofill.
+      Android può usare insertReplacementText, insertText
+      oppure non valorizzare inputType durante l'autofill.
     */
       const autofillInput =
         event.inputType === "insertReplacementText" ||
@@ -813,6 +812,11 @@ if (startQuoteButton && quoteFormSection) {
       if (field.value.trim()) {
         keepAutofilledFieldVisible(field);
       }
+    });
+    field.addEventListener("focus", () => {
+      window.setTimeout(() => {
+        keepAutofilledFieldVisible(field);
+      }, 200);
     });
   });
 }
