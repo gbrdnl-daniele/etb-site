@@ -423,8 +423,8 @@
         </div>
 
         <!-- =====================================================
-       SHOWREEL VIDEO
-       ===================================================== -->
+        SHOWREEL VIDEO
+        ===================================================== -->
 
         <video
           id="showreelVideo"
@@ -432,6 +432,9 @@
           preload="metadata"
           playsinline
           controls
+          controlsList="nodownload noremoteplayback"
+          disablePictureInPicture
+          oncontextmenu="return false;"
         >
           <source
             src="https://media.etberostribute.it/video/promo-etb.mp4"
