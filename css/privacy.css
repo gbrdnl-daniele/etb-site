@@ -1,0 +1,487 @@
+/* ==========================================================
+   ETB MOBILE — PAGINA INFORMATIVA PRIVACY
+========================================================== */
+
+:root {
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: #070503;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% -12%,
+      rgba(184, 121, 43, 0.16),
+      transparent 38%
+    ),
+    linear-gradient(180deg, #0b0805 0%, #070503 34%, #050403 100%);
+
+  color: #f2eadc;
+
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================================================
+   PAGE
+========================================================== */
+
+.privacy-page {
+  position: relative;
+
+  width: min(100%, 860px);
+  min-height: 100vh;
+
+  margin: 0 auto;
+  padding: calc(22px + env(safe-area-inset-top)) 22px
+    calc(42px + env(safe-area-inset-bottom));
+}
+
+.privacy-page::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+
+  background-size: 42px 42px;
+
+  opacity: 0.2;
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.privacy-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 2px 0 42px;
+
+  text-align: center;
+}
+
+.privacy-logo {
+  display: block;
+
+  width: min(54vw, 210px);
+  height: auto;
+
+  margin: 28px auto 22px;
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.42))
+    drop-shadow(0 0 18px rgba(223, 166, 74, 0.08));
+}
+
+.privacy-kicker {
+  margin-bottom: 8px;
+
+  color: rgba(223, 166, 74, 0.86);
+
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.privacy-title {
+  max-width: 720px;
+
+  margin: 0;
+
+  color: #fff5df;
+
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(2.35rem, 10vw, 4.8rem);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.privacy-title-line {
+  width: min(132px, 36vw);
+  height: 1px;
+
+  margin-top: 24px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(223, 166, 74, 0.82),
+    transparent
+  );
+}
+
+/* ==========================================================
+   BACK BUTTONS
+========================================================== */
+
+.privacy-back {
+  appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 46px;
+
+  padding: 0 18px;
+
+  border: 1px solid rgba(223, 166, 74, 0.32);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #efd39c;
+
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.privacy-back span[aria-hidden="true"] {
+  font-size: 1.15em;
+  transform: translateY(-1px);
+}
+
+.privacy-back:active {
+  transform: scale(0.985);
+}
+
+.privacy-back:focus-visible {
+  outline: 2px solid rgba(223, 166, 74, 0.72);
+  outline-offset: 4px;
+}
+
+.privacy-back-top {
+  align-self: flex-start;
+
+  margin-bottom: 4px;
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.privacy-content {
+  width: 100%;
+}
+
+.privacy-intro {
+  margin-bottom: 34px;
+  padding: 24px 22px;
+
+  border: 1px solid rgba(223, 166, 74, 0.18);
+  border-radius: 18px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(223, 166, 74, 0.06),
+    rgba(255, 255, 255, 0.012)
+  );
+
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.privacy-intro p:first-child {
+  margin-top: 0;
+}
+
+.privacy-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.privacy-content p {
+  margin: 0 0 1.15em;
+
+  color: rgba(242, 234, 220, 0.82);
+
+  font-size: 0.96rem;
+  line-height: 1.78;
+}
+
+.privacy-content strong {
+  color: #fff5df;
+  font-weight: 600;
+}
+
+.privacy-content a {
+  color: #dfa64a;
+  text-decoration-color: rgba(223, 166, 74, 0.44);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+
+  overflow-wrap: anywhere;
+
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.privacy-content a:focus-visible {
+  outline: 2px solid rgba(223, 166, 74, 0.72);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ==========================================================
+   SECTIONS
+========================================================== */
+
+.privacy-section {
+  position: relative;
+
+  padding: 30px 0 28px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.privacy-section:first-of-type {
+  border-top-color: rgba(223, 166, 74, 0.18);
+}
+
+.privacy-section h2 {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 14px;
+
+  margin: 0 0 18px;
+
+  color: #fff5df;
+
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(1.45rem, 6vw, 2rem);
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.privacy-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 36px;
+  height: 28px;
+
+  margin-top: 1px;
+  padding: 0 8px;
+
+  border: 1px solid rgba(223, 166, 74, 0.3);
+  border-radius: 999px;
+
+  background: rgba(223, 166, 74, 0.055);
+
+  color: #dfa64a;
+
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.privacy-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.privacy-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 28px;
+
+  text-align: center;
+}
+
+.privacy-footer-line {
+  width: 100%;
+  height: 1px;
+
+  margin-bottom: 28px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(223, 166, 74, 0.32),
+    transparent
+  );
+}
+
+.privacy-back-bottom {
+  min-width: min(100%, 260px);
+
+  border-color: rgba(223, 166, 74, 0.48);
+
+  background: linear-gradient(
+    135deg,
+    rgba(223, 166, 74, 0.14),
+    rgba(223, 166, 74, 0.045)
+  );
+
+  color: #fff0ce;
+}
+
+.privacy-footer-copy {
+  margin: 22px 0 0;
+
+  color: rgba(242, 234, 220, 0.35);
+
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* ==========================================================
+   HOVER — SOLO DISPOSITIVI CHE LO SUPPORTANO
+========================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .privacy-back:hover {
+    border-color: rgba(223, 166, 74, 0.62);
+    background: rgba(223, 166, 74, 0.08);
+    color: #fff5df;
+  }
+
+  .privacy-content a:hover {
+    color: #f3c36f;
+    text-decoration-color: rgba(243, 195, 111, 0.8);
+  }
+}
+
+/* ==========================================================
+   TABLET / DESKTOP
+========================================================== */
+
+@media (min-width: 700px) {
+  .privacy-page {
+    padding-left: 42px;
+    padding-right: 42px;
+  }
+
+  .privacy-header {
+    padding-bottom: 56px;
+  }
+
+  .privacy-logo {
+    width: 220px;
+    margin-top: 34px;
+    margin-bottom: 26px;
+  }
+
+  .privacy-intro {
+    padding: 30px 32px;
+  }
+
+  .privacy-content p {
+    font-size: 1rem;
+  }
+
+  .privacy-section {
+    padding-top: 36px;
+    padding-bottom: 34px;
+  }
+}
+
+/* ==========================================================
+   SCHERMI MOLTO PICCOLI
+========================================================== */
+
+@media (max-width: 380px) {
+  .privacy-page {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+
+  .privacy-logo {
+    width: min(58vw, 188px);
+  }
+
+  .privacy-title {
+    font-size: 2.18rem;
+  }
+
+  .privacy-intro {
+    padding: 20px 18px;
+  }
+
+  .privacy-section h2 {
+    gap: 10px;
+    font-size: 1.34rem;
+  }
+
+  .privacy-content p {
+    font-size: 0.92rem;
+  }
+}
+
+/* ==========================================================
+   RIDUZIONE MOVIMENTO
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .privacy-back,
+  .privacy-content a {
+    transition: none;
+  }
+}

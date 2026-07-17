@@ -2,46 +2,58 @@
 <html lang="it">
   <head>
     <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      ETB Eros Ramazzotti Tribute Band — Cinematic Experience Developer
-    </title>
+
+    <script>
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const forcedView = params.get("view");
+
+        // Permette di forzare manualmente:
+        // ?view=desktop
+        // ?view=mobile
+        if (forcedView === "desktop") {
+          return;
+        }
+
+        const isSmallScreen = window.matchMedia("(max-width: 900px)").matches;
+
+        const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
+        const shouldUseMobile =
+          forcedView === "mobile" || (isSmallScreen && isTouchDevice);
+
+        if (shouldUseMobile) {
+          const destination = "mobile.html" + window.location.hash;
+
+          window.location.replace(destination);
+        }
+      })();
+    </script>
+
+    <title>ETB Eros Ramazzotti Tribute Band — Cinematic Experience</title>
 
     <!-- Google Fonts: versione online di sviluppo. Per la pubblicazione potremo passare a font locali woff2. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Cinzel:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="css/variables.css" />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/animations.css" />
-    <link rel="stylesheet" href="css/effects.css" />
-    <link rel="stylesheet" href="css/layout.css" />
-    <link rel="stylesheet" href="css/storyboard.css" />
-    <link rel="stylesheet" href="css/hero.css" />
-    <link rel="stylesheet" href="css/scenes.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/variables.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/base.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/animations.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/effects.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/layout.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/storyboard.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/hero.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/scenes.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/responsive.css?v=1.0.0" />
   </head>
   <body>
-    <div class="mobile-wip">
-      <div class="mobile-wip-card">
-        <img src="assets/images/etb-logo.png" alt="ETB" />
-
-        <h1>VERSIONE MOBILE IN COSTRUZIONE</h1>
-
-        <p>
-          Stiamo preparando l’esperienza mobile del sito ETB. Per il momento ti
-          consigliamo di visitare il sito da desktop o da uno schermo più
-          grande.
-        </p>
-
-        <span>ETB Eros Ramazzotti Tribute Band</span>
-      </div>
-    </div>
-
     <div class="cinema-bg" aria-hidden="true">
       <canvas id="particles"></canvas>
       <div class="light-rays"></div>
@@ -421,7 +433,10 @@
           playsinline
           controls
         >
-          <source src="https://media.etberostribute.it/video/promo-etb.mp4" type="video/mp4" />
+          <source
+            src="https://media.etberostribute.it/video/promo-etb.mp4"
+            type="video/mp4"
+          />
         </video>
         <!-- =====================================================
      OLTRE IL PROMO
@@ -1199,14 +1214,14 @@
       </div>
     </div>
 
-    <script src="js/timing.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/dates.js"></script>
-    <script src="js/quote-engine.js"></script>
-    <script src="js/route-service.js"></script>
-    <script src="js/email.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/storyboard.js"></script>
-    <script src="js/background.js"></script>
+    <script src="js/timing.js?v=1.0.0"></script>
+    <script src="js/config.js?v=1.0.0"></script>
+    <script src="js/dates.js?v=1.0.0"></script>
+    <script src="js/quote-engine.js?v=1.0.0"></script>
+    <script src="js/route-service.js?v=1.0.0"></script>
+    <script src="js/email.js?v=1.0.0"></script>
+    <script src="js/app.js?v=1.0.0"></script>
+    <script src="js/storyboard.js?v=1.0.0"></script>
+    <script src="js/background.js?v=1.0.0"></script>
   </body>
 </html>

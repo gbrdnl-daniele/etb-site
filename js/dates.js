@@ -35,4 +35,13 @@ const ETB_DATES = [
     time: "22:00",
   },
 
+{
+    date: "2026-09-29",
+    city: "CIAMPINO",
+    province: "RM",
+    event: "KYRBY'S",
+    location: "VIA APPIA VECCHIA SEDE",
+    time: "22:00",
+  },
+
 ];

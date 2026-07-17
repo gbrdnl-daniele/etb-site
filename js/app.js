@@ -745,7 +745,7 @@ quoteForm?.addEventListener("submit", async (event) => {
 
     quoteResult.textContent = "Elaborazione richiesta in corso...";
 
-const customerPhone = document.getElementById("customerPhone").value.trim();
+    const customerPhone = document.getElementById("customerPhone").value.trim();
 
     const normalizedPhone = customerPhone.replace(/[^\d+]/g, "");
 
@@ -779,7 +779,7 @@ const customerPhone = document.getElementById("customerPhone").value.trim();
       },
     };
 
-await sendEtbQuoteEmails(payload);
+    await sendEtbQuoteEmails(payload);
 
     quoteResult.classList.add("is-success");
     quoteResult.textContent =
