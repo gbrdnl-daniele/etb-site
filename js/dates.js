@@ -1,5 +1,23 @@
 const ETB_DATES = [
   {
+    date: "2026-05-29",
+    city: "ROMA",
+    province: "RM",
+    event: "ROMA CON AMORE",
+    location: "STAZIONE BIRRA",
+    time: "22:00",
+  },
+
+  {
+    date: "2026-05-31",
+    city: "ACCIANO",
+    province: "AQ",
+    event: "FESTA PATRONALE",
+    location: "PIAZZA DEL COMUNE",
+    time: "22:00",
+  },
+
+  {
     date: "2026-07-11",
     city: "MACCARESE",
     province: "RM",
@@ -7,7 +25,7 @@ const ETB_DATES = [
     location: "",
     time: "22:00",
   },
-       
+
   {
     date: "2026-08-13",
     city: "MONTEFLAVIO",
@@ -34,14 +52,4 @@ const ETB_DATES = [
     location: "VIA GAGLIANO DEL CAPO",
     time: "22:00",
   },
-
-{
-    date: "2026-09-29",
-    city: "CIAMPINO",
-    province: "RM",
-    event: "KYRBY'S",
-    location: "VIA APPIA VECCHIA SEDE",
-    time: "22:00",
-  },
-
 ];
