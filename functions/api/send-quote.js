@@ -1,20 +1,24 @@
 import { calculateEtbQuote } from "../_lib/quote-engine.js";
+import { geocodePlace, calculateRoute } from "../_lib/openrouteservice.js";
+
 import {
-  geocodePlace,
-  calculateRoute,
-} from "../_lib/openrouteservice.js";
-import {
-  buildCustomerEmailHtml,
-  buildBookingEmailHtml,
+  buildCustomerEmailHtml as buildCustomerEmailHtmlIt,
+  buildBookingEmailHtml as buildBookingEmailHtmlIt,
 } from "../_lib/email-templates.js";
+
+import { buildCustomerEmailHtml as buildCustomerEmailHtmlEn } from "../_lib/email-templates-en.js";
+
 import { sendEmail } from "../_lib/resend.js";
 
 const EMAIL_CONFIG = {
   from: "ETB Booking <booking@mail.etberostribute.it>",
   replyTo: "booking@etberostribute.it",
   bookingTo: "booking@etberostribute.it",
-  customerSubject:
-    "La tua richiesta per ETB — Eros Ramazzotti Tribute Band",
+
+  customerSubjectIt: "La tua richiesta per ETB — Eros Ramazzotti Tribute Band",
+
+  customerSubjectEn: "Your enquiry for ETB — Eros Ramazzotti Tribute Band",
+
   bookingSubject: "Nuova richiesta preventivo ETB",
 };
 
@@ -33,7 +37,9 @@ function jsonResponse(body, status = 200) {
 }
 
 function cleanString(value, maxLength) {
-  return String(value ?? "").trim().slice(0, maxLength);
+  return String(value ?? "")
+    .trim()
+    .slice(0, maxLength);
 }
 
 function normalizePhone(value) {
@@ -150,9 +156,12 @@ export async function onRequestPost(context) {
       500,
     );
   }
-
   try {
     const rawPayload = await context.request.json();
+
+    const language =
+      String(rawPayload?.language || "").toLowerCase() === "en" ? "en" : "it";
+
     const payload = validateAndNormalizePayload(rawPayload);
 
     // Risposta neutra ai bot per non rivelare il filtro.
@@ -165,10 +174,7 @@ export async function onRequestPost(context) {
       payload.event.eventLocation,
     );
 
-    const route = await calculateRoute(
-      context.env.ORS_API_KEY,
-      destination,
-    );
+    const route = await calculateRoute(context.env.ORS_API_KEY, destination);
 
     const quote = calculateEtbQuote({
       eventDate: payload.event.eventDate,
@@ -189,8 +195,17 @@ export async function onRequestPost(context) {
       receivedAt,
     };
 
+    const buildCustomerEmailHtml =
+      language === "en" ? buildCustomerEmailHtmlEn : buildCustomerEmailHtmlIt;
+
+    const customerSubject =
+      language === "en"
+        ? EMAIL_CONFIG.customerSubjectEn
+        : EMAIL_CONFIG.customerSubjectIt;
+
     const customerHtml = buildCustomerEmailHtml(completeRequest);
-    const bookingHtml = buildBookingEmailHtml(completeRequest);
+
+    const bookingHtml = buildBookingEmailHtmlIt(completeRequest);
 
     // L'invio è considerato riuscito solo se entrambe le email partono.
     const [customerResult, bookingResult] = await Promise.all([
@@ -198,7 +213,7 @@ export async function onRequestPost(context) {
         from: EMAIL_CONFIG.from,
         to: [payload.customerEmail],
         reply_to: EMAIL_CONFIG.replyTo,
-        subject: EMAIL_CONFIG.customerSubject,
+        subject: customerSubject,
         html: customerHtml,
       }),
 
@@ -206,8 +221,7 @@ export async function onRequestPost(context) {
         from: EMAIL_CONFIG.from,
         to: [EMAIL_CONFIG.bookingTo],
         reply_to: payload.customerEmail,
-        subject:
-          `${EMAIL_CONFIG.bookingSubject} — ${payload.event.clientName}`,
+        subject: `${EMAIL_CONFIG.bookingSubject} — ${payload.event.clientName}`,
         html: bookingHtml,
       }),
     ]);
@@ -234,17 +248,13 @@ export async function onRequestPost(context) {
     ]);
 
     if (clientErrors.has(error.message)) {
-      return jsonResponse(
-        { success: false, error: error.message },
-        400,
-      );
+      return jsonResponse({ success: false, error: error.message }, 400);
     }
 
     return jsonResponse(
       {
         success: false,
-        error:
-          "Non è stato possibile inviare la richiesta. Riprova più tardi.",
+        error: "Non è stato possibile inviare la richiesta. Riprova più tardi.",
       },
       500,
     );
