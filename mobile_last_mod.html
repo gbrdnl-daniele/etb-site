@@ -45,8 +45,8 @@ Designed for smartphone navigation.
     <!-- CSS -->
 
     <!-- ETB Mobile Experience V1.0 -->
-    <link rel="stylesheet" href="css/variables.css?v=1.0.0" />
-    <link rel="stylesheet" href="css/mobile.css?v=1.0.0" />
+    <link rel="stylesheet" href="/css/variables.css?v=1.0.0" />
+    <link rel="stylesheet" href="/css/mobile.css?v=1.0.4" />
   </head>
 
   <body>
@@ -56,7 +56,7 @@ Designed for smartphone navigation.
         class="menu-open"
         type="button"
         aria-label="Apri il menu"
-        aria-controls="mobileMenu"
+        aria-controls="menuOverlay"
         aria-expanded="false"
       >
         <span></span>
@@ -342,7 +342,7 @@ Designed for smartphone navigation.
           <img
             id="bandIntroImage"
             class="band-intro-image"
-            src="assets/images/mobile/band-intro.webp"
+            src="/assets/images/mobile/band-intro.webp"
             alt=""
           />
 
@@ -352,7 +352,7 @@ Designed for smartphone navigation.
         <!-- Scena reale di Fabio -->
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/fabio-vox.webp"
+          src="/assets/images/mobile/members/fabio-vox.webp"
           alt="Fabio Di Baldo, voce principale degli ETB"
         />
 
@@ -391,7 +391,7 @@ Designed for smartphone navigation.
       >
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/danila-vox.webp"
+          src="/assets/images/mobile/members/danila-vox.webp"
           alt="Danila Sansoni, seconda voce degli ETB"
         />
 
@@ -429,7 +429,7 @@ Designed for smartphone navigation.
       >
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/daniele-guitar.webp"
+          src="/assets/images/mobile/members/daniele-guitar.webp"
           alt="Daniele Gabriele, chitarre acustica & elettrica"
         />
 
@@ -469,7 +469,7 @@ Designed for smartphone navigation.
       >
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/nico-guitar.webp"
+          src="/assets/images/mobile/members/nico-guitar.webp"
           alt="Nico Sansoni, chitarra elettrica"
         />
 
@@ -507,7 +507,7 @@ Designed for smartphone navigation.
       >
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/stefano-key.webp"
+          src="/assets/images/mobile/members/stefano-key.webp"
           alt="Stefano Nardi, Piano, Keyboards, Backing Vocals"
         />
 
@@ -547,7 +547,7 @@ Designed for smartphone navigation.
       >
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/nick-sax.webp"
+          src="/assets/images/mobile/members/nick-sax.webp"
           alt="Nicola Di Giorgio, Saxophone"
         />
 
@@ -585,7 +585,7 @@ Designed for smartphone navigation.
       >
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/giammarco-bass.webp"
+          src="/assets/images/mobile/members/giammarco-bass.webp"
           alt="Giammarco Turchini, Bass & Backing Vocals"
         />
 
@@ -623,7 +623,7 @@ Designed for smartphone navigation.
       >
         <img
           class="member-scene-image"
-          src="assets/images/mobile/members/stefano-drum.webp"
+          src="/assets/images/mobile/members/stefano-drum.webp"
           alt="Stefano Campaioli, Drum"
         />
 
@@ -698,7 +698,7 @@ Designed for smartphone navigation.
               rel="noopener noreferrer"
             >
               <img
-                src="assets/images/youtube/cose-della-vita.jpg"
+                src="/assets/images/youtube/cose-della-vita.jpg"
                 alt="Cose della vita - ETB live"
               />
 
@@ -719,7 +719,7 @@ Designed for smartphone navigation.
               rel="noopener noreferrer"
             >
               <img
-                src="assets/images/youtube/una-storia-importante.jpg"
+                src="/assets/images/youtube/una-storia-importante.jpg"
                 alt="Una storia importante - ETB live"
               />
 
@@ -768,7 +768,7 @@ Designed for smartphone navigation.
                 rel="noopener noreferrer"
               >
                 <img
-                  src="assets/images/youtube/medley-tv.jpg"
+                  src="/assets/images/youtube/medley-tv.jpg"
                   alt="Medley Eros Ramazzotti - ETB TV performance"
                 />
 
@@ -789,7 +789,7 @@ Designed for smartphone navigation.
                 rel="noopener noreferrer"
               >
                 <img
-                  src="assets/images/youtube/piu-bella-cosa-tv.jpg"
+                  src="/assets/images/youtube/piu-bella-cosa-tv.jpg"
                   alt="Più bella cosa - ETB TV performance"
                 />
 
@@ -810,7 +810,7 @@ Designed for smartphone navigation.
                 rel="noopener noreferrer"
               >
                 <img
-                  src="assets/images/youtube/terra-promessa-tv.jpg"
+                  src="/assets/images/youtube/terra-promessa-tv.jpg"
                   alt="Terra promessa - ETB TV performance"
                 />
 
@@ -1357,7 +1357,7 @@ Designed for smartphone navigation.
                 I dati inseriti saranno utilizzati esclusivamente per gestire
                 questa richiesta di stima e di booking ETB.
 
-                <a href="privacy.html" class="mobile-privacy-link">
+                <a href="/privacy.html" class="mobile-privacy-link">
                   Leggi l’Informativa Privacy
                 </a>
               </div>
@@ -1444,7 +1444,7 @@ Designed for smartphone navigation.
       <nav class="menu-panel" aria-label="Menu principale">
         <img
           class="menu-logo"
-          src="assets/images/mobile/etb-lg.webp"
+          src="/assets/images/mobile/etb-lg.webp"
           alt="ETB Eros Ramazzotti Tribute Band"
         />
 
@@ -1457,13 +1457,41 @@ Designed for smartphone navigation.
 
           <a class="menu-estimate" href="#contacts"> RICHIEDI UNA STIMA </a>
         </div>
+
+        <div class="mobile-language-switch" aria-label="Selezione lingua">
+          <div class="mobile-language-title">LANGUAGE</div>
+
+          <div class="mobile-language-options">
+            <a
+              class="mobile-language-link is-active"
+              href="/mobile.html"
+              lang="it"
+              hreflang="it"
+              aria-current="page"
+            >
+              <span class="mobile-language-dot" aria-hidden="true"></span>
+              <span>ITALIANO</span>
+            </a>
+
+            <a
+              class="mobile-language-link"
+              href="/en/mobile.html"
+              lang="en"
+              hreflang="en"
+            >
+              <span class="mobile-language-dot" aria-hidden="true"></span>
+              <span>ENGLISH</span>
+            </a>
+          </div>
+        </div>
       </nav>
     </div>
+
     <!-- ETB Mobile Experience V1.0 -->
-    <script src="js/dates.js?v=1.0.2"></script>
-    <script src="js/config.js?v=1.0.0"></script>
-    <script src="js/email.js?v=1.0.0"></script>
-    <script src="js/mobile.js?v=1.0.2"></script>
-    <script src="js/mobile-quote.js?v=1.0.0"></script>
+    <script src="/js/dates.js?v=1.0.2"></script>
+    <script src="/js/config.js?v=1.0.0"></script>
+    <script src="/js/email.js?v=1.0.0"></script>
+    <script src="/js/mobile.js?v=1.0.4"></script>
+    <script src="/js/mobile-quote.js?v=1.0.0"></script>
   </body>
 </html>
