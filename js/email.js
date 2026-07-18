@@ -8,24 +8,24 @@ async function sendEtbQuoteEmails(payload) {
     throw new Error("Payload email mancante.");
   }
 
-  const response = await fetch(window.ETB_CONFIG.backend.sendQuoteEndpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
+  const response = await fetch(
+    window.ETB_CONFIG.backend.sendQuoteEndpoint,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
     },
-    body: JSON.stringify({
-      ...payload,
-      language: document.documentElement.lang?.toLowerCase().startsWith("en")
-        ? "en"
-        : "it",
-    }),
-  });
+  );
 
   const result = await response.json().catch(() => null);
 
   if (!response.ok || !result?.success) {
-    throw new Error(result?.error || "Invio email non riuscito.");
+    throw new Error(
+      result?.error || "Invio email non riuscito.",
+    );
   }
 
   return result;

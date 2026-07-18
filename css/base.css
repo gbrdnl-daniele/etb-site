@@ -49,39 +49,3 @@ body {
 *::-webkit-scrollbar-thumb:hover {
   background: rgba(218, 146, 54, 0.75);
 }
-
-/* ==========================================================
-   LANGUAGE MENU
-   ========================================================== */
-
-.language-menu {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-left: 12px;
-  white-space: nowrap;
-}
-
-.language-current,
-.language-link,
-.language-divider {
-  transition: color 0.25s ease;
-}
-
-.language-current {
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.language-link {
-  color: rgba(255,255,255,.55);
-  text-decoration: none;
-}
-
-.language-link:hover {
-  color: #ffffff;
-}
-
-.language-divider {
-  color: rgba(255,255,255,.30);
-}

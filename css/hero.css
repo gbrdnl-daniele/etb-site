@@ -130,6 +130,40 @@ h2 {
   border-color: rgba(255, 220, 150, 0.55);
 }
 
+.theme-card {
+  max-width: 920px;
+  margin: 0 auto 7vh;
+  padding: clamp(1.25rem, 3vw, 2.2rem);
+  border-radius: 24px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 1200ms ease,
+    transform 1200ms ease;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 235, 190, 0.055),
+    rgba(255, 255, 255, 0.025)
+  );
+  border: 1px solid rgba(255, 224, 170, 0.12);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.28);
+}
+
+.theme-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.theme-card h2 {
+  letter-spacing: 0.12em;
+  margin-top: 0;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+.theme-card {
+  display: none;
+}
+
 .hero-part {
   opacity: 0;
   filter: blur(10px);
