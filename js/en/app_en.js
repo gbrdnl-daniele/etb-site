@@ -183,7 +183,7 @@ projectToShowreel?.addEventListener("click", () => {
 
 const members = {
   fabio: {
-    image: "assets/images/fabio-vox.png",
+    image: "/assets/images/fabio-vox.png",
     alt: "Fabio Di Baldo",
     role: "LEAD VOCALS · “FABIO EROS”",
     name: "FABIO DI BALDO",
@@ -192,7 +192,7 @@ const members = {
   },
 
   danila: {
-    image: "assets/images/danila-vox.png",
+    image: "/assets/images/danila-vox.png",
     alt: "Danila Sansoni",
     role: "VOCALS · DUETS · BACKING VOCALS",
     name: "DANILA SANSONI",
@@ -201,7 +201,7 @@ const members = {
   },
 
   nico: {
-    image: "assets/images/nico-guitar.png",
+    image: "/assets/images/nico-guitar.png",
     alt: "Nico Sansoni",
     role: "ELECTRIC GUITAR",
     name: "NICO SANSONI",
@@ -210,7 +210,7 @@ const members = {
   },
 
   daniele: {
-    image: "assets/images/daniele-guitar.png",
+    image: "/assets/images/daniele-guitar.png",
     alt: "Daniele Gabriele",
     role: "ELECTRIC & ACOUSTIC GUITAR · PROGRAMMING",
     name: "DANIELE GABRIELE",
@@ -219,7 +219,7 @@ const members = {
   },
 
   "stefano-nardi": {
-    image: "assets/images/stefano-key.png",
+    image: "/assets/images/stefano-key.png",
     alt: "Stefano Nardi",
     role: "PIANO · KEYBOARDS · BACKING VOCALS",
     name: "STEFANO NARDI",
@@ -228,7 +228,7 @@ const members = {
   },
 
   "stefano-campaioli": {
-    image: "assets/images/stefano-drum.png",
+    image: "/assets/images/stefano-drum.png",
     alt: "Stefano Campaioli",
     role: "DRUMS",
     name: "STEFANO CAMPAIOLI",
@@ -237,7 +237,7 @@ const members = {
   },
 
   giammarco: {
-    image: "assets/images/giammarco-bass.png",
+    image: "/assets/images/giammarco-bass.png",
     alt: "Giammarco Turchini",
     role: "BASS · BACKING VOCALS",
     name: "GIAMMARCO TURCHINI",
@@ -246,7 +246,7 @@ const members = {
   },
 
   nicola: {
-    image: "assets/images/nick-sax.png",
+    image: "/assets/images/nick-sax.png",
     alt: "Nicola Di Giorgio",
     role: "SAXOPHONE",
     name: "NICOLA DI GIORGIO",
