@@ -4,8 +4,8 @@ window.ETB_CONFIG = {
   bookingEmail: "booking@etberostribute.it",
 
   contacts: {
-    phone1: "333.1234567",
-    phone2: "334.1234567",
+    phone1: "+39.348.8299245",
+    phone2: "+39.392.3594010",
   },
 
   backend: {
