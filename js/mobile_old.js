@@ -40,8 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const BAND_INTRO_DURATION = 4300;
 
   let bandIntroTimer = null;
-  let menuScrollY = 0;
-  let menuNavigationTimer = null;
 
   /* ==========================================================
      MENU
@@ -52,31 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    window.clearTimeout(menuNavigationTimer);
-
-    menuScrollY = window.scrollY;
-
-    /*
-     * Blocca realmente la pagina nella posizione attuale.
-     * In questo modo il contenuto non può scorrere dietro al menu.
-     */
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${menuScrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.right = "0";
-    document.body.style.width = "100%";
-
-    document.body.classList.add("menu-is-open");
-
     menuOverlay.classList.add("is-visible");
     menuOverlay.setAttribute("aria-hidden", "false");
 
     menuOpen?.setAttribute("aria-expanded", "true");
     menuOpen?.setAttribute("aria-label", "Chiudi il menu");
+
+    document.body.classList.add("menu-is-open");
   }
 
-  function closeMenu({ restoreScroll = true } = {}) {
-    if (!menuOverlay || !document.body.classList.contains("menu-is-open")) {
+  function closeMenu() {
+    if (!menuOverlay) {
       return;
     }
 
@@ -87,26 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     menuOpen?.setAttribute("aria-label", "Apri il menu");
 
     document.body.classList.remove("menu-is-open");
-
-    /*
-     * Rimuove il blocco del body.
-     */
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-
-    /*
-     * Ripristina esattamente il punto da cui era stato aperto il menu.
-     */
-    if (restoreScroll) {
-      window.scrollTo({
-        top: menuScrollY,
-        left: 0,
-        behavior: "auto",
-      });
-    }
   }
 
   function toggleMenu() {
@@ -292,58 +256,29 @@ document.addEventListener("DOMContentLoaded", () => {
   trailerVideo?.addEventListener("ended", closeTrailer);
 
   menuLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
+    link.addEventListener("click", () => {
       const destination = link.getAttribute("href");
 
       /*
-       * I collegamenti interni alla stessa pagina vengono gestiti
-       * manualmente per evitare che chiusura del menu e smooth scroll
-       * partano nello stesso momento.
-       */
-      if (!destination || !destination.startsWith("#")) {
-        closeMenu();
-        return;
-      }
-
-      event.preventDefault();
-
-      const target = document.querySelector(destination);
-
-      if (!target) {
-        closeMenu();
-        return;
-      }
-
-      /*
-       * Il collegamento LA BAND deve far ripartire
-       * l'introduzione cinematografica.
+       * Il collegamento LA BAND deve puntare a:
+       * href="#memberFabio"
        */
       if (destination === "#memberFabio") {
         resetBandIntro();
+
+        /*
+         * Se siamo già sulla scena di Fabio, l'IntersectionObserver
+         * potrebbe non ricevere un nuovo evento. In tal caso facciamo
+         * ripartire direttamente la clip.
+         */
+        if (isBandSceneAlreadyVisible()) {
+          window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(startBandIntro);
+          });
+        }
       }
 
       closeMenu();
-
-      window.clearTimeout(menuNavigationTimer);
-
-      /*
-       * Aspettiamo che il body venga sbloccato e che l'overlay
-       * inizi a scomparire prima di muovere la pagina.
-       */
-      menuNavigationTimer = window.setTimeout(() => {
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-
-        if (destination === "#memberFabio") {
-          window.setTimeout(() => {
-            if (isBandSceneAlreadyVisible()) {
-              startBandIntro();
-            }
-          }, 500);
-        }
-      }, 320);
     });
   });
 
@@ -352,23 +287,6 @@ document.addEventListener("DOMContentLoaded", () => {
       closeMenu();
     }
   });
-
-  menuOverlay?.addEventListener(
-    "touchmove",
-    (event) => {
-      /*
-       * Impedisce che un gesto eseguito sullo sfondo dell'overlay
-       * venga trasferito alla pagina sottostante.
-       *
-       * Il pannello interno può comunque scorrere grazie al proprio
-       * overflow CSS.
-       */
-      if (event.target === menuOverlay) {
-        event.preventDefault();
-      }
-    },
-    { passive: false },
-  );
 
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") {
@@ -460,18 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    let bandIntroResizeFrame = null;
-
-    window.addEventListener(
-      "resize",
-      () => {
-        window.cancelAnimationFrame(bandIntroResizeFrame);
-
-        bandIntroResizeFrame =
-          window.requestAnimationFrame(updateBandIntroScale);
-      },
-      { passive: true },
-    );
+    window.addEventListener("resize", updateBandIntroScale);
   }
   if (tvTrack && tvDots.length) {
     let tvScrollFrame = null;
@@ -871,13 +778,9 @@ if (startQuoteButton && quoteFormSection) {
    ANDROID AUTOFILL — MANTIENE VISIBILI TUTTI I CAMPI DEL FORM
 ========================================================== */
 
-  const mobileQuoteForm = document.getElementById("quoteForm");
-
-  const mobileAutofillFields = mobileQuoteForm
-    ? mobileQuoteForm.querySelectorAll(
-        'input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]), select, textarea',
-      )
-    : [];
+  const mobileAutofillFields = quoteForm.querySelectorAll(
+    'input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]), select, textarea',
+  );
 
   function keepAutofilledFieldVisible(field) {
     window.setTimeout(() => {

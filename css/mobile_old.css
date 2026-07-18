@@ -323,24 +323,22 @@ body {
     ),
     linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.55));
 
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
+  backdrop-filter: blur(0px) brightness(1);
 
-  transition: opacity 0.32s ease;
+  -webkit-backdrop-filter: blur(0px) brightness(1);
+
+  transition:
+    opacity 0.45s ease,
+    backdrop-filter 0.45s ease,
+    -webkit-backdrop-filter 0.45s ease;
 }
 
 .menu-overlay.is-visible {
   opacity: 1;
 
-  background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(215, 165, 70, 0.1),
-      transparent 45%
-    ),
-    rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(8px) brightness(0.55);
+
+  -webkit-backdrop-filter: blur(8px) brightness(0.55);
 }
 
 /* ==========================================================
@@ -361,7 +359,7 @@ body {
   justify-content: center;
 
   width: min(100%, 360px);
-  min-height: 100dvh;
+  min-height: 100%;
 
   margin: 0 auto;
   padding: calc(80px + env(safe-area-inset-top)) 28px
@@ -4054,40 +4052,6 @@ body.trailer-is-open {
 
   .hero .scene-scroll-hint {
     margin-top: 12px;
-  }
-}
-
-/* Blocca realmente la pagina dietro il menu.
-   La posizione viene conservata dal JavaScript. */
-body.menu-is-open {
-  overflow: hidden;
-  touch-action: none;
-}
-
-@media (max-height: 820px) {
-  .menu-panel {
-    justify-content: flex-start;
-    padding-top: calc(62px + env(safe-area-inset-top));
-    padding-bottom: calc(26px + env(safe-area-inset-bottom));
-  }
-
-  .menu-logo {
-    width: min(300px, 82vw);
-    margin-bottom: 24px;
-  }
-
-  .menu-links {
-    gap: 16px;
-  }
-
-  .menu-links .menu-estimate {
-    margin-top: 8px;
-    padding: 13px 16px;
-  }
-
-  .mobile-language-switch {
-    margin-top: 22px;
-    padding-top: 16px;
   }
 }
 

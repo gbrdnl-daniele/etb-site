@@ -15,7 +15,7 @@ html {
 
   background: #000;
 
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -45,7 +45,7 @@ body {
 
   width: 100%;
   min-height: 100svh;
-  min-height: 100dvh;
+  min-height: 100svh;
 
   overflow: hidden;
 
@@ -323,22 +323,17 @@ body {
     ),
     linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.55));
 
-  backdrop-filter: blur(0px) brightness(1);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 
-  -webkit-backdrop-filter: blur(0px) brightness(1);
-
-  transition:
-    opacity 0.45s ease,
-    backdrop-filter 0.45s ease,
-    -webkit-backdrop-filter 0.45s ease;
+  transition: opacity 240ms ease;
 }
 
 .menu-overlay.is-visible {
   opacity: 1;
 
-  backdrop-filter: blur(8px) brightness(0.55);
-
-  -webkit-backdrop-filter: blur(8px) brightness(0.55);
 }
 
 /* ==========================================================
@@ -1302,7 +1297,7 @@ body {
 
   width: 100%;
   min-height: 100svh;
-  min-height: 100dvh;
+  min-height: 100svh;
 
   overflow: hidden;
   isolation: isolate;
@@ -1356,7 +1351,7 @@ body {
 
   width: 100%;
   min-height: 100svh;
-  min-height: 100dvh;
+  min-height: 100svh;
 
   padding: calc(82px + env(safe-area-inset-top)) 26px
     calc(34px + env(safe-area-inset-bottom));
@@ -1611,7 +1606,7 @@ body {
     justify-content: flex-start;
 
     min-height: 100svh;
-    min-height: 100dvh;
+    min-height: 100svh;
 
     padding-top: calc(42px + env(safe-area-inset-top));
     padding-bottom: calc(54px + env(safe-area-inset-bottom));
@@ -1817,7 +1812,7 @@ body {
 
   width: 100%;
   min-height: 100svh;
-  min-height: 100dvh;
+  min-height: 100svh;
 
   overflow: hidden;
   isolation: isolate;
@@ -1840,7 +1835,7 @@ body {
 
   width: 100%;
   min-height: 100svh;
-  min-height: 100dvh;
+  min-height: 100svh;
 
   padding: calc(88px + env(safe-area-inset-top)) 22px
     calc(36px + env(safe-area-inset-bottom));
@@ -2914,7 +2909,7 @@ body {
   justify-content: center;
 
   width: 100%;
-  height: 100dvh;
+  height: 100svh;
 
   padding: calc(70px + env(safe-area-inset-top)) 14px
     calc(34px + env(safe-area-inset-bottom));
@@ -3028,7 +3023,7 @@ body {
   width: 100%;
   height: auto;
   max-height: calc(
-    100dvh - 130px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
+    100svh - 130px - env(safe-area-inset-top) - env(safe-area-inset-bottom)
   );
 
   aspect-ratio: 16 / 9;
@@ -4133,4 +4128,38 @@ body.trailer-is-open {
 .mobile-language-link:focus-visible {
   outline: 1px solid rgba(214, 168, 86, 0.75);
   outline-offset: 6px;
+}
+
+
+/* ==========================================================
+   MOBILE PERFORMANCE STABILIZATION V1.0.3
+========================================================== */
+body.menu-is-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.menu-overlay {
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.menu-panel {
+  min-height: 100svh;
+}
+
+@media (max-height: 820px) {
+  .menu-panel {
+    justify-content: flex-start;
+    padding-top: calc(68px + env(safe-area-inset-top));
+    padding-bottom: calc(28px + env(safe-area-inset-bottom));
+  }
+
+  .menu-logo {
+    width: min(300px, 86vw);
+    margin-bottom: 24px;
+  }
+
+  .menu-links { gap: 15px; }
+  .menu-links .menu-estimate { margin-top: 8px; padding: 13px 16px; }
+  .mobile-language-switch { margin-top: 22px; padding-top: 16px; }
 }
