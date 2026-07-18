@@ -5,8 +5,8 @@
 const LOGO_URL = "https://etberostribute.it/assets/images/etb-logo.png";
 
 const ETB_CONTACTS = {
-  phone1: "348.8299245",
-  phone2: "392.3594010",
+  phone1: "+39.348.8299245",
+  phone2: "+39.392.3594010",
 };
 
 function normalizePhoneHref(value = "") {
