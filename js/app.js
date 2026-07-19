@@ -480,15 +480,56 @@ if (datesArchiveToggle) {
 }
 
 renderDates();
+
 const eventLocationInput = document.getElementById("eventLocation");
 const locationSuggestions = document.getElementById("locationSuggestions");
+const internationalEventInput = document.getElementById("internationalEvent");
 
 let locationSearchTimer;
+
+function updateInternationalEventState() {
+  if (!eventLocationInput) return;
+
+  const isInternational = internationalEventInput?.checked === true;
+
+  selectedEventPlace = null;
+
+  if (locationSuggestions) {
+    locationSuggestions.classList.remove("is-visible");
+    locationSuggestions.innerHTML = "";
+  }
+
+  clearTimeout(locationSearchTimer);
+
+  eventLocationInput.placeholder = isInternational
+    ? "Es. Parigi, Francia"
+    : "Es. Forano (RI)";
+}
+
+internationalEventInput?.addEventListener(
+  "change",
+  updateInternationalEventState,
+);
+
+updateInternationalEventState();
 
 eventLocationInput?.addEventListener("input", () => {
   selectedEventPlace = null;
 
   const query = eventLocationInput.value.trim();
+  const isInternational = internationalEventInput?.checked === true;
+
+  if (isInternational) {
+    clearTimeout(locationSearchTimer);
+
+    locationSuggestions?.classList.remove("is-visible");
+
+    if (locationSuggestions) {
+      locationSuggestions.innerHTML = "";
+    }
+
+    return;
+  }
 
   if (query.length < 3) {
     locationSuggestions.classList.remove("is-visible");
@@ -772,6 +813,10 @@ quoteForm?.addEventListener("submit", async (event) => {
         clientName: document.getElementById("clientName").value.trim(),
         eventDate,
         eventLocation: document.getElementById("eventLocation").value.trim(),
+
+        internationalEvent:
+          document.getElementById("internationalEvent")?.checked === true,
+
         locationType,
         serviceOption,
         lineup,

@@ -46,7 +46,7 @@ Designed for smartphone navigation.
 
     <!-- ETB Mobile Experience V1.0 -->
     <link rel="stylesheet" href="/css/variables.css?v=1.0.0" />
-    <link rel="stylesheet" href="/css/mobile.css?v=1.0.1" />
+    <link rel="stylesheet" href="/css/mobile.css?v=1.0.4" />
   </head>
 
   <body>
@@ -56,7 +56,7 @@ Designed for smartphone navigation.
         class="menu-open"
         type="button"
         aria-label="Open menu"
-        aria-controls="mobileMenu"
+        aria-controls="menuOverlay"
         aria-expanded="false"
       >
         <span></span>
@@ -1353,7 +1353,7 @@ Designed for smartphone navigation.
                 The information provided will be used exclusively to manage this
                 ETB estimate and booking request.
 
-                <a href="privacy-en.html" class="mobile-privacy-link">
+                <a href="/en/privacy.html" class="mobile-privacy-link">
                   Read the Privacy Policy
                 </a>
               </div>
@@ -1453,13 +1453,38 @@ Designed for smartphone navigation.
 
           <a class="menu-estimate" href="#contacts"> REQUEST AN ESTIMATE </a>
         </div>
+
+        <div class="mobile-language-switch" aria-label="Language selection">
+          <div class="mobile-language-title">LANGUAGE</div>
+
+          <div class="mobile-language-options">
+            <a
+              class="mobile-language-link"
+              href="/mobile.html"
+              lang="it"
+              hreflang="it"
+            >
+              <span class="mobile-language-dot" aria-hidden="true"></span>
+              <span>ITALIANO</span>
+            </a>
+
+            <span
+              class="mobile-language-link is-active"
+              lang="en"
+              aria-current="page"
+            >
+              <span class="mobile-language-dot" aria-hidden="true"></span>
+              <span>ENGLISH</span>
+            </span>
+          </div>
+        </div>
       </nav>
     </div>
     <!-- ETB Mobile Experience V1.0 -->
-    <script src="/js/en/dates.js?v=1.0.2"></script>
+    <script src="/js/en/dates_en.js?v=1.0.2"></script>
     <script src="/js/config.js?v=1.0.0"></script>
     <script src="/js/email.js?v=1.0.0"></script>
-    <script src="/js/mobile.js?v=1.0.2"></script>
+    <script src="/js/mobile.js?v=1.0.6"></script>
     <script src="/js/mobile-quote.js?v=1.0.0"></script>
   </body>
 </html>

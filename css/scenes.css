@@ -1546,6 +1546,44 @@
 }
 
 /* =========================================================
+   EVENTO ESTERO
+   ========================================================= */
+
+#quoteForm .international-event {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  margin: 4px 0 14px;
+
+  cursor: pointer;
+}
+
+#quoteForm .international-event input[type="checkbox"] {
+  appearance: auto;
+  -webkit-appearance: checkbox;
+
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+
+  margin-top: 3px;
+
+  cursor: pointer;
+}
+
+#quoteForm .international-event span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 245, 223, 0.82);
+}
+
+#quoteForm .international-event strong {
+  color: #dca34b;
+  font-weight: 600;
+}
+
+/* =========================================================
    PRIVACY POLICY MODAL
    ========================================================= */
 
@@ -2365,7 +2403,6 @@ body.privacy-modal-open {
   }
 }
 
-
 /* =========================================================
    PROJECT SCENE
    ========================================================= */
@@ -2404,9 +2441,9 @@ body.privacy-modal-open {
     linear-gradient(
       90deg,
       rgba(2, 1, 0, 0.96) 0%,
-      rgba(2, 1, 0, 0.90) 30%,
+      rgba(2, 1, 0, 0.9) 30%,
       rgba(2, 1, 0, 0.68) 48%,
-      rgba(2, 1, 0, 0.20) 72%,
+      rgba(2, 1, 0, 0.2) 72%,
       rgba(2, 1, 0, 0.08) 100%
     ),
     linear-gradient(

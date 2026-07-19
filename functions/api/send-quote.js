@@ -91,6 +91,7 @@ function validateAndNormalizePayload(raw) {
     clientName: cleanString(raw.event?.clientName, 120),
     eventDate: cleanString(raw.event?.eventDate, 10),
     eventLocation: cleanString(raw.event?.eventLocation, 180),
+    internationalEvent: raw.event?.internationalEvent === true,
     locationType: cleanString(raw.event?.locationType, 1),
     serviceOption: cleanString(raw.event?.serviceOption, 20),
     lineup: cleanString(raw.event?.lineup, 20),
@@ -169,20 +170,33 @@ export async function onRequestPost(context) {
       return jsonResponse({ success: true });
     }
 
-    const destination = await geocodePlace(
-      context.env.ORS_API_KEY,
-      payload.event.eventLocation,
-    );
+    let route = null;
+    let quote;
 
-    const route = await calculateRoute(context.env.ORS_API_KEY, destination);
+    if (payload.event.internationalEvent) {
+      quote = calculateEtbQuote({
+        eventDate: payload.event.eventDate,
+        distanceKmOneWay: Number.POSITIVE_INFINITY,
+        lineup: payload.event.lineup,
+        serviceOption: payload.event.serviceOption,
+        locationType: payload.event.locationType,
+      });
+    } else {
+      const destination = await geocodePlace(
+        context.env.ORS_API_KEY,
+        payload.event.eventLocation,
+      );
 
-    const quote = calculateEtbQuote({
-      eventDate: payload.event.eventDate,
-      distanceKmOneWay: route.distanceKmOneWay,
-      lineup: payload.event.lineup,
-      serviceOption: payload.event.serviceOption,
-      locationType: payload.event.locationType,
-    });
+      route = await calculateRoute(context.env.ORS_API_KEY, destination);
+
+      quote = calculateEtbQuote({
+        eventDate: payload.event.eventDate,
+        distanceKmOneWay: route.distanceKmOneWay,
+        lineup: payload.event.lineup,
+        serviceOption: payload.event.serviceOption,
+        locationType: payload.event.locationType,
+      });
+    }
 
     const requestId = crypto.randomUUID();
     const receivedAt = new Date().toISOString();

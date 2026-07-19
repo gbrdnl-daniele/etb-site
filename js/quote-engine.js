@@ -187,6 +187,18 @@ function calculateEtbQuote({
     ...extra,
   });
 
+  /* ===== EVENTO ESTERO ===== */
+
+  if (!Number.isFinite(distanceKmOneWay)) {
+    return {
+      automaticQuoteAvailable: false,
+      reason: "INTERNATIONAL_EVENT",
+      message:
+        "L'evento si svolge fuori Italia. Il booking ETB preparerà una proposta personalizzata.",
+      technicalDetails: buildTechnicalDetails(),
+    };
+  }
+
   if (locationType !== "A" || serviceOption !== "available") {
     return {
       automaticQuoteAvailable: false,

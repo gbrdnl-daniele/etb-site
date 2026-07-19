@@ -46,7 +46,7 @@ Designed for smartphone navigation.
 
     <!-- ETB Mobile Experience V1.0 -->
     <link rel="stylesheet" href="css/variables.css?v=1.0.0" />
-    <link rel="stylesheet" href="css/mobile.css?v=1.0.0" />
+    <link rel="stylesheet" href="css/mobile.css?v=1.0.4" />
   </head>
 
   <body>
@@ -56,7 +56,7 @@ Designed for smartphone navigation.
         class="menu-open"
         type="button"
         aria-label="Apri il menu"
-        aria-controls="mobileMenu"
+        aria-controls="menuOverlay"
         aria-expanded="false"
       >
         <span></span>
@@ -1145,8 +1145,22 @@ Designed for smartphone navigation.
                 <input id="eventDate" name="eventDate" type="date" required />
               </label>
 
+              <label class="mobile-quote-consent mobile-international-event">
+                <input
+                  id="internationalEvent"
+                  name="internationalEvent"
+                  type="checkbox"
+                />
+
+                <span class="mobile-international-check"></span>
+
+                <span class="mobile-international-copy">
+                  Il mio evento si svolge <strong>fuori dall’Italia</strong>
+                </span>
+              </label>
+
               <label class="mobile-quote-field mobile-location-field">
-                <span class="mobile-quote-label">Località dell’evento</span>
+                <span class="mobile-quote-label"> Località dell’evento </span>
 
                 <input
                   id="eventLocation"
@@ -1457,13 +1471,38 @@ Designed for smartphone navigation.
 
           <a class="menu-estimate" href="#contacts"> RICHIEDI UNA STIMA </a>
         </div>
+
+        <div class="mobile-language-switch" aria-label="Selezione lingua">
+          <div class="mobile-language-title">LANGUAGE</div>
+
+          <div class="mobile-language-options">
+            <span
+              class="mobile-language-link is-active"
+              lang="it"
+              aria-current="page"
+            >
+              <span class="mobile-language-dot" aria-hidden="true"></span>
+              <span>ITALIANO</span>
+            </span>
+
+            <a
+              class="mobile-language-link"
+              href="/en/mobile.html"
+              lang="en"
+              hreflang="en"
+            >
+              <span class="mobile-language-dot" aria-hidden="true"></span>
+              <span>ENGLISH</span>
+            </a>
+          </div>
+        </div>
       </nav>
     </div>
     <!-- ETB Mobile Experience V1.0 -->
     <script src="js/dates.js?v=1.0.2"></script>
     <script src="js/config.js?v=1.0.0"></script>
     <script src="js/email.js?v=1.0.0"></script>
-    <script src="js/mobile.js?v=1.0.2"></script>
+    <script src="js/mobile.js?v=1.0.6"></script>
     <script src="js/mobile-quote.js?v=1.0.0"></script>
   </body>
 </html>

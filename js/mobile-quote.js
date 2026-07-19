@@ -17,6 +17,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
   quoteForm.noValidate = true;
 
+  const internationalEventField = document.getElementById("internationalEvent");
+
+  const eventLocationField = document.getElementById("eventLocation");
+
+  const locationSuggestions = document.getElementById("locationSuggestions");
+
+  const eventLocationLabel = document.querySelector(
+    ".mobile-location-field .mobile-quote-label",
+  );
+
+  function updateInternationalEventMode() {
+    if (!internationalEventField || !eventLocationField) {
+      return;
+    }
+
+    const isInternationalEvent = internationalEventField.checked;
+
+    if (isInternationalEvent) {
+      eventLocationField.placeholder = "Es. Londra, Regno Unito";
+      eventLocationField.setAttribute("autocomplete", "off");
+
+      if (eventLocationLabel) {
+        eventLocationLabel.textContent = "Città / Stato";
+      }
+
+      if (locationSuggestions) {
+        locationSuggestions.innerHTML = "";
+        locationSuggestions.hidden = true;
+      }
+    } else {
+      eventLocationField.placeholder = "Es. Forano (RI)";
+      eventLocationField.setAttribute("autocomplete", "off");
+
+      if (eventLocationLabel) {
+        eventLocationLabel.textContent = "Località dell’evento";
+      }
+
+      if (locationSuggestions) {
+        locationSuggestions.innerHTML = "";
+        locationSuggestions.hidden = false;
+      }
+    }
+  }
+
+  if (internationalEventField) {
+    internationalEventField.addEventListener(
+      "change",
+      updateInternationalEventMode,
+    );
+
+    updateInternationalEventMode();
+  }
+
   const customerEmailConfirmField = quoteForm.elements.namedItem(
     "etbEmailManualConfirm",
   );
@@ -80,6 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const eventDate = String(formData.get("eventDate") || "").trim();
 
       const eventLocation = String(formData.get("eventLocation") || "").trim();
+
+      const internationalEvent = formData.has("internationalEvent");
 
       const locationType = String(formData.get("locationType") || "").trim();
 
@@ -210,6 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
           clientName,
           eventDate,
           eventLocation,
+          internationalEvent,
           locationType,
           serviceOption,
           lineup,

@@ -38,39 +38,145 @@ document.addEventListener("DOMContentLoaded", () => {
   const quoteSubmitButton = document.querySelector(".mobile-quote-submit");
 
   const BAND_INTRO_DURATION = 4300;
-
-  let bandIntroTimer = null;
+  const MENU_CLOSE_DURATION = 450;
 
   /* ==========================================================
-     MENU
-  ========================================================== */
+   SCELTA LINGUA PER DATE
+========================================================== */
+
+  const PAGE_LANGUAGE = document.documentElement.lang
+    ?.toLowerCase()
+    .startsWith("en")
+    ? "en"
+    : "it";
+
+  const PAGE_LOCALE = PAGE_LANGUAGE === "en" ? "en-GB" : "it-IT";
+
+  const UI_TEXT = {
+    it: {
+      menuOpen: "Apri il menu",
+      menuClose: "Chiudi il menu",
+
+      eventTimePrefix: "ORE",
+      nextEvent: "PROSSIMO EVENTO",
+      upcomingDates: "PROSSIME DATE",
+      upcomingEmpty: "Nuovi appuntamenti in arrivo.",
+      liveArchive: "ARCHIVIO LIVE",
+      archiveEmpty: "Gli eventi conclusi verranno raccolti qui.",
+    },
+
+    en: {
+      menuOpen: "Open menu",
+      menuClose: "Close menu",
+
+      eventTimePrefix: "TIME",
+      nextEvent: "NEXT EVENT",
+      upcomingDates: "UPCOMING DATES",
+      upcomingEmpty: "New live dates coming soon.",
+      liveArchive: "LIVE ARCHIVE",
+      archiveEmpty: "Past events will be collected here.",
+    },
+  };
+
+  const TEXT = UI_TEXT[PAGE_LANGUAGE];
+
+  /* ==========================================================*/
+
+  let bandIntroTimer = null;
+  let menuCloseTimer = null;
+  let menuScrollY = 0;
+  let isPageScrollLocked = false;
+
+  /* ==========================================================
+   MENU
+========================================================== */
+
+  function lockPageScroll() {
+    if (isPageScrollLocked) {
+      return;
+    }
+
+    menuScrollY = window.scrollY;
+
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${menuScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+
+    isPageScrollLocked = true;
+  }
+
+  function unlockPageScroll() {
+    if (!isPageScrollLocked) {
+      return;
+    }
+
+    const scrollPosition = menuScrollY;
+
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+
+    isPageScrollLocked = false;
+
+    window.scrollTo(0, scrollPosition);
+  }
 
   function openMenu() {
     if (!menuOverlay) {
       return;
     }
 
+    if (document.body.classList.contains("menu-is-open")) {
+      return;
+    }
+
+    window.clearTimeout(menuCloseTimer);
+    menuCloseTimer = null;
+
+    lockPageScroll();
+
     menuOverlay.classList.add("is-visible");
     menuOverlay.setAttribute("aria-hidden", "false");
 
     menuOpen?.setAttribute("aria-expanded", "true");
-    menuOpen?.setAttribute("aria-label", "Chiudi il menu");
+    menuOpen?.setAttribute("aria-label", TEXT.menuClose);
 
     document.body.classList.add("menu-is-open");
   }
 
-  function closeMenu() {
-    if (!menuOverlay) {
+  function closeMenu(onClosed = null) {
+    if (!menuOverlay || !document.body.classList.contains("menu-is-open")) {
       return;
     }
+
+    window.clearTimeout(menuCloseTimer);
 
     menuOverlay.classList.remove("is-visible");
     menuOverlay.setAttribute("aria-hidden", "true");
 
     menuOpen?.setAttribute("aria-expanded", "false");
-    menuOpen?.setAttribute("aria-label", "Apri il menu");
+    menuOpen?.setAttribute("aria-label", TEXT.menuOpen);
 
     document.body.classList.remove("menu-is-open");
+
+    /*
+     * Manteniamo la pagina congelata durante la dissolvenza
+     * dell'overlay. Lo scroll viene riattivato soltanto quando
+     * il menu ha terminato la chiusura.
+     */
+    menuCloseTimer = window.setTimeout(() => {
+      unlockPageScroll();
+
+      menuCloseTimer = null;
+
+      if (typeof onClosed === "function") {
+        onClosed();
+      }
+    }, MENU_CLOSE_DURATION);
   }
 
   function toggleMenu() {
@@ -243,6 +349,34 @@ document.addEventListener("DOMContentLoaded", () => {
     promoButton?.focus();
   }
 
+  function restartHomeAnimation(element) {
+    if (!element) {
+      return;
+    }
+
+    element.style.animation = "none";
+
+    /*
+     * Forza il browser a registrare lo stato iniziale
+     * prima di ripristinare l'animazione CSS originale.
+     */
+    void element.offsetWidth;
+
+    element.style.animation = "";
+  }
+
+  function replayHomeScene() {
+    const heroBackground = document.querySelector("#home .hero-background");
+
+    const promoButtonHome = document.querySelector("#home .promo-button");
+
+    const scrollHintHome = document.querySelector("#home .scene-scroll-hint");
+
+    restartHomeAnimation(heroBackground);
+    restartHomeAnimation(promoButtonHome);
+    restartHomeAnimation(scrollHintHome);
+  }
+
   /* ==========================================================
      EVENTI PRINCIPALI
   ========================================================== */
@@ -256,29 +390,83 @@ document.addEventListener("DOMContentLoaded", () => {
   trailerVideo?.addEventListener("ended", closeTrailer);
 
   menuLinks.forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (event) => {
       const destination = link.getAttribute("href");
 
+      if (!destination || !destination.startsWith("#")) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const targetSection = document.querySelector(destination);
+
+      if (!targetSection) {
+        return;
+      }
+
       /*
-       * Il collegamento LA BAND deve puntare a:
-       * href="#memberFabio"
+       * Per ora manteniamo soltanto il comportamento
+       * già esistente della scena introduttiva della Band.
        */
       if (destination === "#memberFabio") {
         resetBandIntro();
+      }
+
+      closeMenu(() => {
+        if (window.location.hash !== destination) {
+          window.history.pushState(null, "", destination);
+        }
 
         /*
-         * Se siamo già sulla scena di Fabio, l'IntersectionObserver
-         * potrebbe non ricevere un nuovo evento. In tal caso facciamo
-         * ripartire direttamente la clip.
+         * La HOME coincide con l'inizio assoluto della pagina.
          */
-        if (isBandSceneAlreadyVisible()) {
+        if (destination === "#home") {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+
+          const homeNavigationStartedAt = performance.now();
+          const homeNavigationTimeout = 1800;
+
+          function waitForHomeArrival() {
+            const hasArrived = window.scrollY <= 2;
+
+            const hasTimedOut =
+              performance.now() - homeNavigationStartedAt >=
+              homeNavigationTimeout;
+
+            if (hasArrived || hasTimedOut) {
+              replayHomeScene();
+              return;
+            }
+
+            window.requestAnimationFrame(waitForHomeArrival);
+          }
+
+          window.requestAnimationFrame(waitForHomeArrival);
+
+          return;
+        }
+
+        targetSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        /*
+         * Se Fabio era già dentro il viewport, l'Observer potrebbe
+         * non generare un nuovo ingresso. Riavviamo quindi soltanto
+         * la Band in questo caso specifico.
+         */
+        if (destination === "#memberFabio" && isBandSceneAlreadyVisible()) {
           window.requestAnimationFrame(() => {
             window.requestAnimationFrame(startBandIntro);
           });
         }
-      }
-
-      closeMenu();
+      });
     });
   });
 
@@ -442,7 +630,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const eventDate = new Date(Number(year), Number(month) - 1, Number(day));
 
-    const monthName = new Intl.DateTimeFormat("it-IT", {
+    const pageLocale =
+      document.documentElement.lang === "en" ? "en-GB" : "it-IT";
+
+    const monthName = new Intl.DateTimeFormat(PAGE_LOCALE, {
       month: "long",
     })
       .format(eventDate)
@@ -484,7 +675,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ${locationMarkup}
 
       <div class="date-card-time">
-        ORE ${event.time}
+        ${TEXT.eventTimePrefix} ${event.time}
       </div>
     </div>
   `;
@@ -543,7 +734,7 @@ document.addEventListener("DOMContentLoaded", () => {
         badge.className = "date-card-badge";
 
         const badgeText = document.createElement("span");
-        badgeText.textContent = "PROSSIMO EVENTO";
+        badgeText.textContent = TEXT.nextEvent;
 
         badge.appendChild(badgeText);
 
@@ -561,22 +752,22 @@ document.addEventListener("DOMContentLoaded", () => {
       datesUpcomingList.innerHTML = `
       <div class="dates-empty-state">
         <span class="dates-empty-year">
-          PROSSIME DATE
+          ${TEXT.upcomingDates}
         </span>
 
-        <p>Nuovi appuntamenti in arrivo.</p>
+        <p>${TEXT.upcomingEmpty}</p>
       </div>
-    `;
+      `;
     }
 
     if (!pastEvents.length) {
       datesArchiveList.innerHTML = `
       <div class="dates-empty-state">
         <span class="dates-empty-year">
-          ARCHIVIO LIVE
+          ${TEXT.liveArchive}
         </span>
 
-        <p>Gli eventi conclusi verranno raccolti qui.</p>
+        <p>${TEXT.archiveEmpty}</p>
       </div>
     `;
     }
@@ -628,6 +819,9 @@ if (startQuoteButton && quoteFormSection) {
 
   const mobileEventDate = document.getElementById("eventDate");
   const mobileEventLocation = document.getElementById("eventLocation");
+  const mobileInternationalEvent =
+    document.getElementById("internationalEvent");
+
   const mobileLocationSuggestions = document.getElementById(
     "locationSuggestions",
   );
@@ -729,8 +923,18 @@ if (startQuoteButton && quoteFormSection) {
 
     mobileLocationSuggestions.classList.toggle("is-visible", places.length > 0);
   }
+  
+  mobileInternationalEvent?.addEventListener("change", () => {
+    mobileSelectedPlace = null;
+    closeMobileLocationSuggestions();
+  });
 
   mobileEventLocation?.addEventListener("input", () => {
+    if (mobileInternationalEvent?.checked) {
+      closeMobileLocationSuggestions();
+      return;
+    }
+
     mobileSelectedPlace = null;
 
     const query = mobileEventLocation.value.trim();
