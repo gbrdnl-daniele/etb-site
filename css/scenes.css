@@ -1544,12 +1544,13 @@
   font-size: 12px;
   line-height: 1.5;
 }
-
 /* =========================================================
    EVENTO ESTERO
    ========================================================= */
 
 #quoteForm .international-event {
+  grid-column: 1 / -1;
+
   display: flex;
   align-items: flex-start;
   gap: 10px;
