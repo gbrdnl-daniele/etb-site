@@ -1544,42 +1544,55 @@
   font-size: 12px;
   line-height: 1.5;
 }
+
 /* =========================================================
    EVENTO ESTERO
    ========================================================= */
 
-#quoteForm .international-event {
+#quoteForm label.international-event {
   grid-column: 1 / -1;
 
   display: flex;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   gap: 10px;
 
+  width: fit-content;
   margin: 4px 0 14px;
+
+  font-size: 14px;
+  letter-spacing: 0.08em;
 
   cursor: pointer;
 }
 
-#quoteForm .international-event input[type="checkbox"] {
+#quoteForm label.international-event input[type="checkbox"] {
   appearance: auto;
   -webkit-appearance: checkbox;
+
+  display: block;
+  flex: 0 0 16px;
 
   width: 16px;
   min-width: 16px;
   height: 16px;
 
-  margin-top: 3px;
+  margin: 0;
 
   cursor: pointer;
 }
 
-#quoteForm .international-event span {
+#quoteForm label.international-event span {
+  display: inline;
+  margin: 0;
+
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.4;
   color: rgba(255, 245, 223, 0.82);
 }
 
-#quoteForm .international-event strong {
+#quoteForm label.international-event strong {
   color: #dca34b;
   font-weight: 600;
 }
