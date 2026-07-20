@@ -8,7 +8,7 @@ const ETB_QUOTE_CONFIG = {
   maxAutomaticDistanceKm: 250,
   freeTravelUntilKm: 29,
   vanDailyCost: 100,
-  fuelPricePerLiter: 1.85,
+  fuelPricePerLiter: 2,
   carKmPerLiter: 14,
   vanKmPerLiter: 10,
   highDemandMultiplier: 1.5,
@@ -20,8 +20,8 @@ const ETB_QUOTE_CONFIG = {
   },
 
   feeBands: [
-    { minKm: 0, maxKm: 49, feePerMusician: 100 },
-    { minKm: 50, maxKm: 120, feePerMusician: 120 },
+    { minKm: 0, maxKm: 29, feePerMusician: 130 },
+    { minKm: 30, maxKm: 120, feePerMusician: 130 },
     { minKm: 121, maxKm: 250, feePerMusician: 150 },
   ],
 };
