@@ -27,17 +27,17 @@ window.ETB_TIMING = {
 window.ETB_STORYBOARD = [
   {
     text: "Some songs...",
-    hold: 1000,
+    hold: 100,
     first: true,
   },
   {
     text: "...are not just heard...",
-    hold: 2000,
+    hold: 1000,
     long: true,
   },
   {
     text: "they are EXPERIENCED.",
-    hold: 2500,
+    hold: 1500,
     claim: true,
     pauseAfter: 300,
   },
