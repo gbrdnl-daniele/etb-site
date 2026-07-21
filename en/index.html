@@ -1,7 +1,15 @@
 <!doctype html>
+
+<!--
+  ETB – Eros Ramazzotti Tribute Band
+  Website designed and developed by Daniele Gabriele
+-->
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+
+    <meta name="author" content="Daniele Gabriele" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -38,13 +46,148 @@
       content="ETB – Eros Ramazzotti Tribute Band delivers an authentic live concert experience with eight professional musicians, faithfully recreating the sound, energy and emotion of Eros Ramazzotti's greatest live performances."
     />
 
+    <link rel="icon" href="/assets/images/etb-logo.png" type="image/png" />
+
     <link rel="canonical" href="https://www.etberostribute.it/en/" />
+
+    <link
+      rel="alternate"
+      media="only screen and (max-width: 900px)"
+      href="https://www.etberostribute.it/en/mobile.html"
+    />
+
+    <link rel="alternate" hreflang="it" href="https://www.etberostribute.it/" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.etberostribute.it/en/"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://www.etberostribute.it/"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MusicGroup",
+            "@id": "https://www.etberostribute.it/#musicgroup",
+            "name": "ETB – Eros Ramazzotti Tribute Band",
+            "alternateName": "ETB",
+            "url": "https://www.etberostribute.it/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.etberostribute.it/assets/images/etb-logo.png"
+            },
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://www.etberostribute.it/assets/images/band-scene.png",
+              "width": 1774,
+              "height": 887
+            },
+            "description": "ETB – Eros Ramazzotti Tribute Band is an eight-piece professional live band delivering an authentic concert experience dedicated to the music of Eros Ramazzotti.",
+            "genre": ["Pop", "Pop rock", "Italian pop music", "Tribute band"],
+            "email": "booking@etberostribute.it",
+            "areaServed": [
+              {
+                "@type": "Country",
+                "name": "Italy"
+              },
+              {
+                "@type": "Place",
+                "name": "Europe"
+              }
+            ],
+            "member": [
+              {
+                "@type": "Person",
+                "name": "Fabio Di Baldo",
+                "jobTitle": "Lead Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Danila Sansoni",
+                "jobTitle": "Female Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Daniele Gabriele",
+                "jobTitle": "Electric and Acoustic Guitar, Programming"
+              },
+              {
+                "@type": "Person",
+                "name": "Nico Sansoni",
+                "jobTitle": "Electric Guitar"
+              },
+              {
+                "@type": "Person",
+                "name": "Nicola Di Giorgio",
+                "jobTitle": "Saxophone"
+              },
+              {
+                "@type": "Person",
+                "name": "Stefano Nardi",
+                "jobTitle": "Piano, Keyboards and Backing Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Giammarco Turchini",
+                "jobTitle": "Bass and Backing Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Stefano Campaioli",
+                "jobTitle": "Drums"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.etberostribute.it/#website",
+            "url": "https://www.etberostribute.it/",
+            "name": "ETB – Eros Ramazzotti Tribute Band",
+            "inLanguage": ["it-IT", "en"],
+            "publisher": {
+              "@id": "https://www.etberostribute.it/#musicgroup"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://www.etberostribute.it/en/#webpage",
+            "url": "https://www.etberostribute.it/en/",
+            "name": "ETB | Eros Ramazzotti Tribute Band | Live Music Experience",
+            "description": "ETB – Eros Ramazzotti Tribute Band: eight professional musicians delivering an authentic live concert experience that recreates the sound, energy and emotion of Eros Ramazzotti's greatest hits.",
+            "inLanguage": "en",
+            "isPartOf": {
+              "@id": "https://www.etberostribute.it/#website"
+            },
+            "about": {
+              "@id": "https://www.etberostribute.it/#musicgroup"
+            },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://www.etberostribute.it/assets/images/band-scene.png",
+              "width": 1774,
+              "height": 887
+            }
+          }
+        ]
+      }
+    </script>
 
     <meta property="og:title" content="ETB | Eros Ramazzotti Tribute Band" />
 
     <meta
       property="og:description"
       content="Authentic live tribute experience dedicated to the music of Eros Ramazzotti."
+    />
+
+    <meta
+      property="og:site_name"
+      content="ETB – Eros Ramazzotti Tribute Band"
     />
 
     <meta property="og:type" content="website" />
@@ -61,6 +204,10 @@
       content="ETB – Eros Ramazzotti Tribute Band"
     />
 
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1774" />
+    <meta property="og:image:height" content="887" />
+
     <meta property="og:locale" content="en_GB" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -76,6 +223,7 @@
       name="twitter:image"
       content="https://www.etberostribute.it/assets/images/band-scene.png"
     />
+
     <!-- Google Fonts: versione online di sviluppo. Per la pubblicazione potremo passare a font locali woff2. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -147,8 +295,13 @@
         </p>
 
         <div class="hero-actions hero-part">
-          <a class="btn primary" href="#">WATCH THE SHOWREEL</a>
-          <a class="btn" href="#">BOOKING ENQUIRIES</a>
+          <a id="heroShowreel" class="btn primary" href="#showreel">
+            WATCH THE SHOWREEL
+          </a>
+
+          <a id="heroContacts" class="btn" href="#contacts">
+            BOOKING ENQUIRIES
+          </a>
         </div>
       </section>
 
@@ -586,7 +739,7 @@
               <div class="showreel-video-column">
                 <a
                   class="showreel-card showreel-card-tv"
-                  href="https://www.youtube.com/watch?v=AcxtzUMbStc&t"
+                  href="https://www.youtube.com/watch?v=AcxtzUMbStc"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -628,7 +781,7 @@
 
                 <a
                   class="showreel-card showreel-card-tv"
-                  href="https://www.youtube.com/watch?v=0V2D1NXu-xw&t"
+                  href="https://www.youtube.com/watch?v=0V2D1NXu-xw"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -1248,6 +1401,13 @@
             This Privacy Notice may be updated whenever new website features are
             introduced, service providers change or the way booking enquiries
             and future communications are managed is modified.
+          </p>
+
+          <h3>10. Credits</h3>
+
+          <p>
+            The official ETB – Eros Ramazzotti Tribute Band website was designed
+            and developed by Daniele Gabriele.
           </p>
         </div>
 

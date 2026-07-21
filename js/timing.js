@@ -27,17 +27,17 @@ window.ETB_TIMING = {
 window.ETB_STORYBOARD = [
   {
     text: "Ci sono canzoni...",
-    hold: 1000,
+    hold: 100,
     first: true,
   },
   {
     text: "...che non si limitano ad essere ascoltate...",
-    hold: 2000,
+    hold: 1000,
     long: true,
   },
   {
     text: "SI VIVONO.",
-    hold: 2500,
+    hold: 1500,
     claim: true,
     pauseAfter: 300,
   },

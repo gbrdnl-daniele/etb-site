@@ -10,6 +10,8 @@ Mobile-first experience
 Designed for smartphone navigation.
 
 © ETB – Eros Ramazzotti Tribute Band
+
+Website designed and developed by Daniele Gabriele
 ==========================================================
 -->
 
@@ -24,9 +26,57 @@ Designed for smartphone navigation.
 
     <title>ETB | Eros Ramazzotti Tribute Band</title>
 
+    <meta name="author" content="Daniele Gabriele" />
+
     <meta
       name="description"
-      content="ETB Eros Ramazzotti Tribute Band - Mobile Experience"
+      content="ETB – Eros Ramazzotti Tribute Band: otto musicisti professionisti per un autentico concerto live che ricrea il suono, l'energia e le emozioni dei più grandi successi di Eros Ramazzotti."
+    />
+
+    <meta
+      property="og:site_name"
+      content="ETB – Eros Ramazzotti Tribute Band"
+    />
+
+    <meta property="og:title" content="ETB | Eros Ramazzotti Tribute Band" />
+
+    <meta
+      property="og:description"
+      content="Autentica esperienza live dedicata alla musica di Eros Ramazzotti."
+    />
+
+    <meta property="og:type" content="website" />
+
+    <meta property="og:url" content="https://www.etberostribute.it/" />
+
+    <meta
+      property="og:image"
+      content="https://www.etberostribute.it/assets/images/band-scene.webp"
+    />
+
+    <meta
+      property="og:image:alt"
+      content="ETB – Eros Ramazzotti Tribute Band"
+    />
+
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1774" />
+    <meta property="og:image:height" content="887" />
+
+    <meta property="og:locale" content="it_IT" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="twitter:title" content="ETB | Eros Ramazzotti Tribute Band" />
+
+    <meta
+      name="twitter:description"
+      content="Autentica esperienza live dedicata alla musica di Eros Ramazzotti."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://www.etberostribute.it/assets/images/band-scene.webp"
     />
 
     <link rel="canonical" href="https://www.etberostribute.it/" />
@@ -42,6 +92,116 @@ Designed for smartphone navigation.
       hreflang="x-default"
       href="https://www.etberostribute.it/"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MusicGroup",
+            "@id": "https://www.etberostribute.it/#musicgroup",
+            "name": "ETB – Eros Ramazzotti Tribute Band",
+            "alternateName": "ETB",
+            "url": "https://www.etberostribute.it/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.etberostribute.it/assets/images/etb-logo.webp"
+            },
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://www.etberostribute.it/assets/images/band-scene.webp",
+              "width": 1774,
+              "height": 887
+            },
+            "description": "ETB – Eros Ramazzotti Tribute Band è una formazione composta da otto musicisti professionisti che propone un autentico concerto live dedicato alla musica di Eros Ramazzotti.",
+            "genre": ["Pop", "Pop rock", "Italian pop music", "Tribute band"],
+            "email": "booking@etberostribute.it",
+            "areaServed": [
+              {
+                "@type": "Country",
+                "name": "Italia"
+              },
+              {
+                "@type": "Place",
+                "name": "Europe"
+              }
+            ],
+            "member": [
+              {
+                "@type": "Person",
+                "name": "Fabio Di Baldo",
+                "jobTitle": "Lead Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Danila Sansoni",
+                "jobTitle": "Female Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Daniele Gabriele",
+                "jobTitle": "Electric and Acoustic Guitar, Programming"
+              },
+              {
+                "@type": "Person",
+                "name": "Nico Sansoni",
+                "jobTitle": "Electric Guitar"
+              },
+              {
+                "@type": "Person",
+                "name": "Nicola Di Giorgio",
+                "jobTitle": "Saxophone"
+              },
+              {
+                "@type": "Person",
+                "name": "Stefano Nardi",
+                "jobTitle": "Piano, Keyboards and Backing Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Giammarco Turchini",
+                "jobTitle": "Bass and Backing Vocals"
+              },
+              {
+                "@type": "Person",
+                "name": "Stefano Campaioli",
+                "jobTitle": "Drums"
+              }
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.etberostribute.it/#website",
+            "url": "https://www.etberostribute.it/",
+            "name": "ETB – Eros Ramazzotti Tribute Band",
+            "inLanguage": ["it-IT", "en"],
+            "publisher": {
+              "@id": "https://www.etberostribute.it/#musicgroup"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://www.etberostribute.it/#webpage",
+            "url": "https://www.etberostribute.it/",
+            "name": "ETB Eros Ramazzotti Tribute Band — Cinematic Experience",
+            "description": "ETB – Eros Ramazzotti Tribute Band: otto musicisti professionisti per un autentico concerto live che ricrea il suono, l'energia e le emozioni dei più grandi successi di Eros Ramazzotti.",
+            "inLanguage": "it-IT",
+            "isPartOf": {
+              "@id": "https://www.etberostribute.it/#website"
+            },
+            "about": {
+              "@id": "https://www.etberostribute.it/#musicgroup"
+            },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://www.etberostribute.it/assets/images/band-scene.webp",
+              "width": 1774,
+              "height": 887
+            }
+          }
+        ]
+      }
+    </script>
 
     <link rel="icon" href="assets/images/etb-logo.png" type="image/png" />
 
@@ -638,13 +798,13 @@ Designed for smartphone navigation.
         <img
           class="member-scene-image"
           src="assets/images/mobile/members/stefano-drum.webp"
-          alt="Stefano Campaioli, Drum"
+          alt="Stefano Campaioli, Drums"
         />
 
         <div class="member-scene-shade" aria-hidden="true"></div>
 
         <div class="member-scene-content">
-          <div class="member-scene-role">DRUM</div>
+          <div class="member-scene-role">DRUMS</div>
 
           <h2 class="member-scene-name">STEFANO CAMPAIOLI</h2>
 
@@ -839,18 +999,6 @@ Designed for smartphone navigation.
               </a>
             </div>
 
-            <div class="showreel-tv-dots" aria-hidden="true">
-              <span class="is-active"></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-
-          <div class="showreel-tv-carousel">
-            <div class="showreel-tv-track">
-              <!-- le 3 card -->
-            </div>
-
             <div class="showreel-tv-controls">
               <div class="showreel-tv-swipe">
                 <span>SWIPE VERSO DESTRA</span>
@@ -864,7 +1012,6 @@ Designed for smartphone navigation.
               </div>
             </div>
           </div>
-
           <a
             class="scene-scroll-hint"
             href="#dates"
@@ -1206,7 +1353,7 @@ Designed for smartphone navigation.
                   <option value="D">Cerimonia nuziale</option>
                 </select>
                 <span
-                  id="lineupSelectedValue"
+                  id="locationTypeSelectedValue"
                   class="mobile-select-selected-value"
                   aria-live="polite"
                 ></span>
@@ -1271,7 +1418,7 @@ Designed for smartphone navigation.
                   <option value="required">Da valutare con ETB</option>
                 </select>
                 <span
-                  id="lineupSelectedValue"
+                  id="serviceOptionSelectedValue"
                   class="mobile-select-selected-value"
                   aria-live="polite"
                 ></span>

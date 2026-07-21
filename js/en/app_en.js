@@ -29,6 +29,9 @@ const showreelGalleryBack = document.getElementById("showreelGalleryBack");
 const projectToBand = document.getElementById("projectToBand");
 const projectToShowreel = document.getElementById("projectToShowreel");
 
+const heroShowreel = document.getElementById("heroShowreel");
+const heroContacts = document.getElementById("heroContacts");
+
 showreelExplore?.addEventListener("click", () => {
   showreelScene.classList.add("is-gallery");
 });
@@ -179,6 +182,16 @@ projectToBand?.addEventListener("click", () => {
 
 projectToShowreel?.addEventListener("click", () => {
   goToScene("showreel");
+});
+
+heroShowreel?.addEventListener("click", (event) => {
+  event.preventDefault();
+  goToScene("showreel");
+});
+
+heroContacts?.addEventListener("click", (event) => {
+  event.preventDefault();
+  goToScene("contacts");
 });
 
 const members = {
