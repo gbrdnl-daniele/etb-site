@@ -2257,6 +2257,8 @@ body.privacy-modal-open {
   align-items: center;
   gap: 8px;
   width: fit-content;
+  min-height: 18px;
+  line-height: 18px;
 }
 
 .help-tooltip-trigger {
