@@ -45,11 +45,30 @@ const ETB_DATES = [
   },
 
   {
-    date: "2026-09-06",
-    city: "VILLAVERDE",
+    date: "2026-09-04",
+    city: "MARINO",
     province: "RM",
-    event: "",
-    location: "VIA GAGLIANO DEL CAPO",
+    event: "KIRBY'S",
+    location: "VIA DEI MILLE 8",
     time: "22:00",
   },
+
+   {
+    date: "2026-09-06",
+    city: "VILLA VERDE",
+    province: "RM",
+    event: "FESTA IN PIAZZA",
+    location: "VIA GAGLIANO DEL CAPO",
+    time: "21:30",
+  },
+
+   {
+    date: "2026-09-12",
+    city: "FORMIA",
+    province: "LT",
+    event: "FESTA IN PIAZZA",
+    location: "PIAZZA DELLA VITTORIA",
+    time: "21:30",
+  },
+
 ];
