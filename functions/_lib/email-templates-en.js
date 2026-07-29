@@ -2,7 +2,7 @@
    ETB BACKEND — EMAIL TEMPLATES
    ========================================================= */
 
-const LOGO_URL = "https://etberostribute.it/assets/images/etb-logo.png";
+const LOGO_URL = "https://www.etberostribute.it/assets/images/etb-logo.png";
 
 const ETB_CONTACTS = {
   phone1: "+39.348.8299245",
