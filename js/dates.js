@@ -71,4 +71,13 @@ const ETB_DATES = [
     time: "21:30",
   },
 
+  {
+    date: "2027-01-03",
+    city: "MARINO",
+    province: "RM",
+    event: "KIRBY'S",
+    location: "Via Dei Mille 8",
+    time: "22:00",
+  },
+
 ];
