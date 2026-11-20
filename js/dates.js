@@ -80,4 +80,13 @@ const ETB_DATES = [
     time: "22:00",
   },
 
+  {
+    date: "2027-07-13",
+    city: "ROMA",
+    province: "RM",
+    event: "VILLA AURELIA",
+    location: "Evento Privato",
+    time: "20:00",
+  },
+
 ];
